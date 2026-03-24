@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//mnt/c/Users/ADMIN/Documents/**)",
+      "Bash(mvn test:*)",
+      "Bash(find C:/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20 -name *.jar)",
+      "Bash(jar tf:*)",
+      "Bash(mvn dependency:build-classpath -q -Dmdep.outputFile=cp.txt)",
+      "Bash(python3 -c \":*)",
+      "Bash(powershell -Command \"Add-Type -AssemblyName System.IO.Compression.FileSystem; \\\\$zip = [System.IO.Compression.ZipFile]::OpenRead\\('C:/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar'\\); \\\\$zip.Entries | Where-Object { \\\\$_.FullName -match 'annotation' -and \\\\$_.FullName -match 'Step' } | Select-Object -ExpandProperty FullName | head\")",
+      "Bash(powershell -Command \"Add-Type -AssemblyName System.IO.Compression.FileSystem; \\\\$zip = [System.IO.Compression.ZipFile]::OpenRead\\('C:/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar'\\); \\\\$zip.Entries | Where-Object { \\\\$_.FullName -match 'annotations/' } | Select-Object -ExpandProperty FullName | head -40\")",
+      "Bash(powershell -Command \"Add-Type -AssemblyName System.IO.Compression.FileSystem; \\\\$zip = [System.IO.Compression.ZipFile]::OpenRead\\('C:/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar'\\); \\\\$zip.Entries | Where-Object { \\\\$_.FullName -match 'net/thucydides/core/annotations/' } | Select-Object -ExpandProperty FullName\")",
+      "Bash(mvn clean:*)",
+      "Bash(mvn dependency:list -pl common-module -DincludeScope=compile -Dsort=true -q)",
+      "Bash(mvn dependency:list -pl common-module)",
+      "Bash(mvn dependency:build-classpath -pl common-module -Dmdep.outputFile=../target/common-cp.txt -q)",
+      "Bash(mvn dependency:build-classpath -pl web-module -Dmdep.outputFile=../target/web-cp.txt -q)",
+      "Bash(mvn install:*)",
+      "Bash(mvn dependency:build-classpath -pl common-module -Dmdep.outputFile=target/common-cp.txt -q)",
+      "Bash(mvn dependency:build-classpath -pl web-module -Dmdep.outputFile=target/web-cp.txt -q)",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/ADMIN/Documents/DemSerenityWithAI/target/gen-idea.ps1\" 2>&1)",
+      "Bash(mvn dependency:build-classpath -Dmdep.outputFile=cp.txt -pl web-module)",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/ADMIN/Documents/DemSerenityWithAI/target/gen-idea.ps1\")"
+    ]
+  }
+}
