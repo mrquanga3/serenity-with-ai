@@ -11,14 +11,14 @@ parent pom (packaging=pom)
 ---
 
 ## Parent POM Responsibilities
-
-| Section | What Goes Here |
-|---|---|
-| `<packaging>pom</packaging>` | Required for parent/aggregator |
-| `<modules>` | List all child modules |
-| `<properties>` | Shared version numbers |
-| `<dependencyManagement>` | Declare versions — children reference without version |
-| `<build><plugins>` | Checkstyle + PMD — inherited by all child modules |
+ 
+| Section                      | What Goes Here                                        |
+|------------------------------|-------------------------------------------------------|
+| `<packaging>pom</packaging>` | Required for parent/aggregator                        |
+| `<modules>`                  | List all child modules                                |
+| `<properties>`               | Shared version numbers                                |
+| `<dependencyManagement>`     | Declare versions — children reference without version |
+| `<build><plugins>`           | Checkstyle + PMD — inherited by all child modules     |
 
 ---
 
@@ -45,11 +45,13 @@ web-module/src/test/java/     ← test scope, private to web-module
 ```
 
 `web-module/pom.xml` depends on `common-module` without scope (= compile default):
+
 ```xml
+
 <dependency>
-  <groupId>com.mrquanga3</groupId>
-  <artifactId>common-module</artifactId>
-  <version>${project.version}</version>
+    <groupId>com.mrquanga3</groupId>
+    <artifactId>common-module</artifactId>
+    <version>${project.version}</version>
 </dependency>
 ```
 
@@ -58,6 +60,7 @@ web-module/src/test/java/     ← test scope, private to web-module
 ## Build Reactor Order
 
 Maven resolves build order automatically from dependency graph:
+
 1. Parent (pom) — always first
 2. `common-module` — no inter-module dependencies
 3. `web-module` — depends on `common-module`, so built after it

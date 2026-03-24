@@ -33,33 +33,34 @@ File location: `src/test/resources/<page>/<page>.properties`
 
 Format: `key=type:value`
 
-| Prefix | Resolves to |
-|---|---|
-| `id:` | `By.id(value)` |
-| `css:` | `By.cssSelector(value)` |
-| `xpath:` | `By.xpath(value)` |
-| `name:` | `By.name(value)` |
+| Prefix   | Resolves to             |
+|----------|-------------------------|
+| `id:`    | `By.id(value)`          |
+| `css:`   | `By.cssSelector(value)` |
+| `xpath:` | `By.xpath(value)`       |
+| `name:`  | `By.name(value)`        |
 
 Example (`login/login.properties`):
+
 ```properties
-username.input=id:input-username
-password.input=id:input-password
-login.button=css:button[type='submit']
-dashboard.element=id:header
-error.message=css:.alert-danger
+username.input = id:input-username
+password.input = id:input-password
+login.button = css:button[type='submit']
+dashboard.element = id:header
+error.message = css:.alert-danger
 ```
 
 ---
 
 ## Available Keywords (WebKeywords)
 
-| Method | Description |
-|---|---|
-| `navigateTo(url)` | Open a URL in the browser |
-| `inputText(locator, text)` | Clear field and type text |
-| `clickElement(locator)` | Click an element |
-| `verifyElementVisible(locator)` | Assert element is displayed |
-| `verifyUrlContains(fragment)` | Assert current URL contains string |
+| Method                          | Description                        |
+|---------------------------------|------------------------------------| 
+| `navigateTo(url)`               | Open a URL in the browser          |
+| `inputText(locator, text)`      | Clear field and type text          |
+| `clickElement(locator)`         | Click an element                   |
+| `verifyElementVisible(locator)` | Assert element is displayed        |
+| `verifyUrlContains(fragment)`   | Assert current URL contains string |
 
 All keyword methods use explicit 10-second waits (`WebDriverWait`) before interacting.
 
@@ -73,6 +74,7 @@ All keyword methods use explicit 10-second waits (`WebDriverWait`) before intera
 4. Use `driver()` helper to access the managed WebDriver
 
 ```java
+
 @Step("Select option '{1}' from dropdown '{0}'")
 public void selectOption(String locator, String optionText) {
   WebElement dropdown = createWait().until(
@@ -86,6 +88,7 @@ public void selectOption(String locator, String optionText) {
 ## Why No Page Object?
 
 This project deliberately uses keyword-driven style (not Page Object):
+
 - Locators live in `.properties` files, not Java classes
 - `WebKeywords` is stateless and generic across all pages
 - Step definitions own the page-specific knowledge (which properties file, which keys)

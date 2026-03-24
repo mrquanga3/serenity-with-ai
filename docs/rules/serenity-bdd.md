@@ -45,7 +45,7 @@ Step def class: injects keyword class via `@Steps`.
 // WebKeywords.java (in common-module src/main/java)
 public class WebKeywords {
   @Step("Navigate to '{0}'")
-  public void navigateTo(String url) { ... }
+  public void navigateTo(String url) { ...}
 }
 
 // LoginSteps.java (in web-module src/test/java)
@@ -56,6 +56,7 @@ public class LoginSteps {
 ```
 
 When `@Steps` is used, Serenity wraps the field in a proxy that:
+
 - Records each `@Step` call in the HTML report
 - Takes screenshots at each step (controlled by `serenity.conf`)
 
@@ -64,6 +65,7 @@ When `@Steps` is used, Serenity wraps the field in a proxy that:
 ## serenity.conf (HOCON format)
 
 Minimal working config:
+
 ```hocon
 webdriver {
   driver = chrome    # chrome | firefox | edge
@@ -82,22 +84,26 @@ Place in: `src/test/resources/serenity.conf`
 ## Runner Class
 
 ```java
+
 @RunWith(CucumberWithSerenity.class)   // NOT @RunWith(Cucumber.class)
 @CucumberOptions(
     features = "src/test/resources/features",
     glue = "com.mrquanga3.steps",
     plugin = {"pretty", "json:target/cucumber-reports/cucumber.json"}
 )
-public class CucumberTestRunner {}
+public class CucumberTestRunner {
+}
 ```
 
 The runner class name does NOT match default Surefire patterns.
 Must explicitly include it in surefire config:
+
 ```xml
+
 <configuration>
-  <includes>
-    <include>**/CucumberTestRunner.java</include>
-  </includes>
+    <includes>
+        <include>**/CucumberTestRunner.java</include>
+    </includes>
 </configuration>
 ```
 
