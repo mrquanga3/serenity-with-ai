@@ -21,7 +21,13 @@
       "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/ADMIN/Documents/DemSerenityWithAI/target/gen-idea.ps1\" 2>&1)",
       "Bash(mvn dependency:build-classpath -Dmdep.outputFile=cp.txt -pl web-module)",
       "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/ADMIN/Documents/DemSerenityWithAI/target/gen-idea.ps1\")",
-      "Bash(mvn validate:*)"
+      "Bash(mvn validate:*)",
+      "Bash(curl -s -L \"https://robotframework.org/SeleniumLibrary/SeleniumLibrary.html\")",
+      "Bash(where python:*)",
+      "Bash(where python3:*)",
+      "Bash(where java:*)",
+      "Bash(where node:*)",
+      "Bash(where perl:*)"
     ]
   }
 }

@@ -16,10 +16,12 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
 ├── common-module/                  ← shared reusable keyword + step library
 │   ├── pom.xml
 │   └── src/main/java/com/mrquanga3/
+│       ├── common/
+│       │   └── Common.java         ← global variables (save-to-variable pattern)
 │       ├── keywords/
-│       │   └── WebKeywords.java    ← generic browser keyword actions
+│       │   └── WebKeywords.java    ← ~75 SeleniumLibrary-style keywords
 │       ├── steps/
-│       │   └── CommonSteps.java    ← generic reusable Cucumber step defs
+│       │   └── CommonSteps.java    ← ~75 generic Cucumber step definitions
 │       └── utils/
 │           ├── ActorManager.java   ← multi-actor browser session manager
 │           └── PropertiesLoader.java
@@ -34,8 +36,9 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
             │   ├── login.feature
             │   └── login-multi-actor.feature
             ├── properties/
-            │   ├── environment.properties  ← URLs and account credentials
-            │   └── login/login.properties  ← locators (type:value format)
+            │   ├── SIT/environment.properties  ← SIT env URLs + credentials
+            │   ├── UAT/environment.properties  ← UAT env URLs + credentials
+            │   └── login/login.properties      ← locators (type:value, shared)
             └── serenity.conf
 ```
 
@@ -50,7 +53,7 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
 
 1. Add locators to `web-module/src/test/resources/properties/<page>/<page>.properties`
 2. Add feature file to `web-module/src/test/resources/features/<page>/`
-3. Add URLs/credentials to `web-module/src/test/resources/properties/environment.properties`
+3. Add URLs/credentials to `web-module/src/test/resources/properties/{env}/environment.properties`
 4. Generic steps (navigate, click, enter text, verify) are in `CommonSteps` — no duplication needed
 5. Add domain-specific step definitions only if the generic ones don't cover the scenario
 

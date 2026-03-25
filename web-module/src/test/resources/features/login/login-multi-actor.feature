@@ -3,7 +3,7 @@ Feature: Multi-actor login to OpenCart Admin Panel
   Scenario: Two actors login with different browsers
     Given "Alice" opens a "chrome" browser
     And "Bob" opens a "firefox" browser
-
+    And I maximize browser window
     When switching to "Alice"
     And I navigate to the "urlAdmin" page
     And I enter "admin" to "username.input" field
