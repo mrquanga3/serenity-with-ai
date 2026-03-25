@@ -18,6 +18,11 @@
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-core</artifactId>
         </dependency>
+        <!-- Cucumber annotations for common step definitions -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+        </dependency>
         <!-- Assertions used inside keyword methods -->
         <dependency>
             <groupId>org.assertj</groupId>

@@ -2,6 +2,7 @@ package com.mrquanga3.keywords;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.mrquanga3.utils.ActorManager;
 import java.time.Duration;
 import net.serenitybdd.annotations.Step;
 import net.serenitybdd.core.Serenity;
@@ -21,6 +22,9 @@ public class WebKeywords {
   private static final int DEFAULT_TIMEOUT_SECONDS = 10;
 
   private WebDriver driver() {
+    if (ActorManager.hasActiveActor()) {
+      return ActorManager.currentDriver();
+    }
     return Serenity.getWebdriverManager().getWebdriver();
   }
 

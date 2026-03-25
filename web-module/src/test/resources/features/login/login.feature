@@ -1,7 +1,7 @@
 Feature: Login to OpenCart Admin Panel
 
   Scenario: Login successfully with valid credentials
-    Given I navigate to the login page
+    Given I navigate to the "urlAdmin" page
     When I enter "admin" to "username.input" field
     And I enter "admin" to "password.input" field
     And I click "login.button"
@@ -9,7 +9,7 @@ Feature: Login to OpenCart Admin Panel
     And I should see "dashboard.element"
 
   Scenario: Login fails with invalid credentials
-    Given I navigate to the login page
+    Given I navigate to the "urlAdmin" page
     When I enter "admin" to "username.input" field
     And I enter "wrongpassword" to "password.input" field
     And I click "login.button"

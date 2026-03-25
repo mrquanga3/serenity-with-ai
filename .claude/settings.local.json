@@ -20,7 +20,8 @@
       "Bash(mvn dependency:build-classpath -pl web-module -Dmdep.outputFile=target/web-cp.txt -q)",
       "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/ADMIN/Documents/DemSerenityWithAI/target/gen-idea.ps1\" 2>&1)",
       "Bash(mvn dependency:build-classpath -Dmdep.outputFile=cp.txt -pl web-module)",
-      "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/ADMIN/Documents/DemSerenityWithAI/target/gen-idea.ps1\")"
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/ADMIN/Documents/DemSerenityWithAI/target/gen-idea.ps1\")",
+      "Bash(mvn validate:*)"
     ]
   }
 }

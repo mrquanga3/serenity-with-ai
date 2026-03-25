@@ -20,38 +20,47 @@ they either don't exist in 4.x or don't contain `Step`/`Steps`.
 
 ## WebDriver Access in Keywords
 
-Use `Serenity.getWebdriverManager().getWebdriver()` to get the current managed driver:
+**Single-actor mode** (default): uses `Serenity.getWebdriverManager().getWebdriver()`,
+lazy-initialized from `serenity.conf`, lifecycle managed by `CucumberWithSerenity`.
+
+**Multi-actor mode**: when actors are opened via `ActorManager`, `WebKeywords.driver()`
+returns the active actor's driver instead. Each actor creates its own `ChromeDriver`
+or `FirefoxDriver`. Cleanup is handled by an `@After` hook.
 
 ```java
-import net.serenitybdd.core.Serenity;
-
 private WebDriver driver() {
+  if (ActorManager.hasActiveActor()) {
+    return ActorManager.currentDriver();
+  }
   return Serenity.getWebdriverManager().getWebdriver();
 }
 ```
-
-- The driver is lazy-initialized on first call based on `serenity.conf`
-- Lifecycle (open/close) is managed automatically by `CucumberWithSerenity`
-- Do NOT create `new ChromeDriver()` manually
 
 ---
 
 ## Step Library Pattern
 
 Keyword class: plain POJO with `@Step` annotations.
-Step def class: injects keyword class via `@Steps`.
+Step def classes: inject keyword class via `@Steps`.
+
+**CommonSteps** (in `common-module/src/main/java`) holds all generic, reusable step definitions.
+Domain-specific steps can be added in `web-module/src/test/java` when needed.
 
 ```java
 // WebKeywords.java (in common-module src/main/java)
 public class WebKeywords {
   @Step("Navigate to '{0}'")
-  public void navigateTo(String url) { ...}
+  public void navigateTo(String url) { ... }
 }
 
-// LoginSteps.java (in web-module src/test/java)
-public class LoginSteps {
+// CommonSteps.java (in common-module src/main/java)
+public class CommonSteps {
   @Steps
-  WebKeywords keywords;   // Serenity proxies this for reporting
+  WebKeywords keywords;
+  @Given("I navigate to the {string} page")
+  public void navigateToPage(String urlKey) { ... }
+  @And("I click {string}")
+  public void clickElement(String locatorKey) { ... }
 }
 ```
 

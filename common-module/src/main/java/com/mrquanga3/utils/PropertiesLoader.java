@@ -3,7 +3,6 @@ package com.mrquanga3.utils;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ResourceList;
 import io.github.classgraph.ScanResult;
-
 import java.io.IOException;
 import java.util.Properties;
 
