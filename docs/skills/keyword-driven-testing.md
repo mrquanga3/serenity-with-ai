@@ -13,7 +13,7 @@ Locators are externalized to properties files — test code never hardcodes sele
 ```
 Feature file (.feature)
     ↓  Gherkin steps matched by annotations
-Common Step Definitions (CommonSteps.java — in common-module)
+Common Step Definitions (CommonWebSteps.java — in common-module)
     ↓  ~75 generic steps modelled after RF SeleniumLibrary
     ↓  actor management, save-to-variable via Common.globalVariables
     ↓  resolves locator keys and URL keys via PropertiesLoader
@@ -268,9 +268,9 @@ And I execute javascript "return document.readyState" then save to "state"
 
 ---
 
-## Common Step Definitions (CommonSteps)
+## Common Step Definitions (CommonWebSteps)
 
-Located in `common-module/src/main/java/com/mrquanga3/steps/CommonSteps.java`.
+Located in `common-module/src/main/java/com/mrquanga3/steps/CommonWebSteps.java`.
 ~75 generic Cucumber steps. Full reference by category:
 
 ### Actor Management
@@ -427,7 +427,7 @@ Located in `common-module/src/main/java/com/mrquanga3/steps/CommonSteps.java`.
 
 An `@After` hook automatically closes all actor browsers and clears global variables after each scenario.
 
-Domain-specific steps can be added in `web-module/src/test/java/com/mrquanga3/steps/`.
+Domain-specific steps can be added in `module-demo-all-platforms/src/test/java/com/mrquanga3/steps/`.
 
 ---
 

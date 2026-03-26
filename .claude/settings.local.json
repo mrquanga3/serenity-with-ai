@@ -14,12 +14,12 @@
       "Bash(mvn dependency:list -pl common-module -DincludeScope=compile -Dsort=true -q)",
       "Bash(mvn dependency:list -pl common-module)",
       "Bash(mvn dependency:build-classpath -pl common-module -Dmdep.outputFile=../target/common-cp.txt -q)",
-      "Bash(mvn dependency:build-classpath -pl web-module -Dmdep.outputFile=../target/web-cp.txt -q)",
+      "Bash(mvn dependency:build-classpath -pl module-demo-all-platforms -Dmdep.outputFile=../target/web-cp.txt -q)",
       "Bash(mvn install:*)",
       "Bash(mvn dependency:build-classpath -pl common-module -Dmdep.outputFile=target/common-cp.txt -q)",
-      "Bash(mvn dependency:build-classpath -pl web-module -Dmdep.outputFile=target/web-cp.txt -q)",
+      "Bash(mvn dependency:build-classpath -pl module-demo-all-platforms -Dmdep.outputFile=target/web-cp.txt -q)",
       "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/ADMIN/Documents/DemSerenityWithAI/target/gen-idea.ps1\" 2>&1)",
-      "Bash(mvn dependency:build-classpath -Dmdep.outputFile=cp.txt -pl web-module)",
+      "Bash(mvn dependency:build-classpath -Dmdep.outputFile=cp.txt -pl module-demo-all-platforms)",
       "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/ADMIN/Documents/DemSerenityWithAI/target/gen-idea.ps1\")",
       "Bash(mvn validate:*)",
       "Bash(curl -s -L \"https://robotframework.org/SeleniumLibrary/SeleniumLibrary.html\")",
@@ -27,7 +27,13 @@
       "Bash(where python3:*)",
       "Bash(where java:*)",
       "Bash(where node:*)",
-      "Bash(where perl:*)"
+      "Bash(where perl:*)",
+      "Bash(emulator -list-avds)",
+      "Read(//c/Users/ADMIN/Documents/serenity-with-ai/$ANDROID_HOME/**)",
+      "Bash(\"$ANDROID_HOME/emulator/emulator\" -list-avds)",
+      "Read(//c/Users/ADMIN/Documents/serenity-with-ai/$LOCALAPPDATA/Android/Sdk/**)",
+      "Bash(adb devices:*)",
+      "Bash(find C:UsersADMINDocumentsserenity-with-ai -type f \\\\\\(-name *.yml -o -name *.yaml \\\\\\))"
     ]
   }
 }

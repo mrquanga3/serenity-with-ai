@@ -20,7 +20,7 @@ import net.serenitybdd.annotations.Steps;
  * {@link Common#globalVariables()}.
  */
 @SuppressWarnings("PMD.GodClass")
-public class CommonSteps {
+public class CommonWebSteps {
 
   @Steps
   WebKeywords keywords;

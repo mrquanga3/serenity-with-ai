@@ -20,7 +20,7 @@
 - `serenity-core` — provides `@Step`, `Serenity.getWebdriverManager()`, Selenium
 - `assertj-core` — assertions in keyword methods
 
-### web-module (test scope)
+### module-demo-all-platforms (test scope)
 - `common-module` — the keyword library
 - `serenity-cucumber` — Cucumber + Serenity integration
 - `serenity-junit` — JUnit + Serenity integration

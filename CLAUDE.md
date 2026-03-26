@@ -17,7 +17,7 @@ Multi-module Maven project demonstrating Serenity BDD with keyword-driven UI tes
 | Module | Role |
 |---|---|
 | `common-module` | Generic reusable `WebKeywords` library (compile scope) |
-| `web-module` | Login feature files, step definitions, runner, locators |
+| `module-demo-all-platforms` | Login feature files, step definitions, runner, locators |
 
 See [docs/context/project-structure.md](docs/context/project-structure.md) for the full directory tree.
 
@@ -30,20 +30,20 @@ mvn clean verify
 # Run tests only (skips report aggregation)
 mvn test
 
-# Run tests in web-module only
-mvn test -pl web-module -am
+# Run tests in module-demo-all-platforms only
+mvn test -pl module-demo-all-platforms -am
 
 # Skip static analysis for a quick run
-mvn test -pl web-module -am -Dcheckstyle.skip=true -Dpmd.skip=true
+mvn test -pl module-demo-all-platforms -am -Dcheckstyle.skip=true -Dpmd.skip=true
 
 # Regenerate Serenity HTML report from existing test data
-mvn serenity:aggregate -pl web-module
+mvn serenity:aggregate -pl module-demo-all-platforms
 
 # Run a single test class
-mvn test -Dtest=CucumberTestRunner -pl web-module -am
+mvn test -Dtest=CucumberTestRunner -pl module-demo-all-platforms -am
 ```
 
-Serenity report: `web-module/target/site/serenity/index.html`
+Serenity report: `module-demo-all-platforms/target/site/serenity/index.html`
 
 ## Static Analysis
 
