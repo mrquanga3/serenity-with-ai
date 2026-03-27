@@ -5,6 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.mrquanga3.utils.ActorManager;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.HidesKeyboard;
+import io.appium.java_client.InteractsWithApps;
+import io.appium.java_client.remote.SupportsContextSwitching;
+import io.appium.java_client.remote.SupportsRotation;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -162,7 +166,7 @@ public class MobileKeywords {
   /** Hides the on-screen keyboard. */
   @Step("Hide keyboard")
   public void hideKeyboard() {
-    driver().hideKeyboard();
+    ((HidesKeyboard) driver()).hideKeyboard();
   }
 
   // ── Element getters ─────────────────────────────────────────────
@@ -331,27 +335,31 @@ public class MobileKeywords {
   /** Activates (brings to foreground) the app. */
   @Step("Launch app '{0}'")
   public void launchApp(String appPackageOrBundleId) {
-    driver().activateApp(appPackageOrBundleId);
+    ((InteractsWithApps) driver())
+        .activateApp(appPackageOrBundleId);
   }
 
   /** Terminates the app. */
   @Step("Close app '{0}'")
   public void closeApp(String appPackageOrBundleId) {
-    driver().terminateApp(appPackageOrBundleId);
+    ((InteractsWithApps) driver())
+        .terminateApp(appPackageOrBundleId);
   }
 
   /** Terminates and re-activates the app. */
   @Step("Reset app '{0}'")
   public void resetApp(String appPackageOrBundleId) {
-    driver().terminateApp(appPackageOrBundleId);
-    driver().activateApp(appPackageOrBundleId);
+    InteractsWithApps appsDriver =
+        (InteractsWithApps) driver();
+    appsDriver.terminateApp(appPackageOrBundleId);
+    appsDriver.activateApp(appPackageOrBundleId);
   }
 
   /** Returns the app state as a string. */
   @Step("Get app state '{0}'")
   public String getAppState(String appPackageOrBundleId) {
-    return driver().queryAppState(appPackageOrBundleId)
-        .toString();
+    return ((InteractsWithApps) driver())
+        .queryAppState(appPackageOrBundleId).toString();
   }
 
   // ── Device actions ──────────────────────────────────────────────
@@ -359,14 +367,16 @@ public class MobileKeywords {
   /** Sets the device orientation (LANDSCAPE or PORTRAIT). */
   @Step("Set orientation to '{0}'")
   public void setOrientation(String orientation) {
-    driver().rotate(
-        ScreenOrientation.valueOf(orientation.toUpperCase()));
+    ((SupportsRotation) driver()).rotate(
+        ScreenOrientation.valueOf(
+            orientation.toUpperCase(java.util.Locale.ROOT)));
   }
 
   /** Returns the current device orientation. */
   @Step("Get orientation")
   public String getOrientation() {
-    return driver().getOrientation().toString();
+    return ((SupportsRotation) driver())
+        .getOrientation().toString();
   }
 
   /** Takes a screenshot and saves it to target/screenshots. */
@@ -426,13 +436,16 @@ public class MobileKeywords {
   /** Switches to the named context (NATIVE_APP, WEBVIEW_*). */
   @Step("Switch to context '{0}'")
   public void switchToContext(String contextName) {
-    driver().context(contextName);
+    ((SupportsContextSwitching) driver())
+        .context(contextName);
   }
 
   /** Returns available contexts as comma-separated string. */
   @Step("Get contexts")
   public String getContexts() {
-    Set<String> contexts = driver().getContextHandles();
+    Set<String> contexts =
+        ((SupportsContextSwitching) driver())
+            .getContextHandles();
     return String.join(",", contexts);
   }
 

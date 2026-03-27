@@ -23,7 +23,11 @@ import org.slf4j.LoggerFactory;
  * {@link #switchTo(String)} to change the active actor, and
  * {@link #currentDriver()} to get the active driver.
  *
- * <p>Call {@link #closeAll()} after each scenario to clean up all sessions.
+ * <p>All state is stored in {@link ThreadLocal} so that parallel
+ * scenario execution does not cause cross-thread interference.
+ *
+ * <p>Call {@link #closeAll()} after each scenario to clean up
+ * all sessions for the current thread.
  */
 public final class ActorManager {
 
@@ -33,11 +37,12 @@ public final class ActorManager {
   /** Distinguishes web-browser actors from mobile-device actors. */
   public enum ActorType { WEB, MOBILE }
 
-  private static final Map<String, WebDriver> DRIVERS =
-      new LinkedHashMap<>();
-  private static final Map<String, ActorType> ACTOR_TYPES =
-      new LinkedHashMap<>();
-  private static String currentActor;
+  private static final ThreadLocal<Map<String, WebDriver>> DRIVERS =
+      ThreadLocal.withInitial(LinkedHashMap::new);
+  private static final ThreadLocal<Map<String, ActorType>> ACTOR_TYPES =
+      ThreadLocal.withInitial(LinkedHashMap::new);
+  private static final ThreadLocal<String> CURRENT_ACTOR =
+      new ThreadLocal<>();
 
   private ActorManager() {
   }
@@ -48,15 +53,16 @@ public final class ActorManager {
    * Opens a new browser for the given actor and makes it active.
    *
    * @param actorName unique name for this actor (e.g. "Alice")
-   * @param browserType browser to launch: {@code chrome} or {@code firefox}
+   * @param browserType browser to launch: {@code chrome} or
+   *                    {@code firefox}
    */
   public static void openBrowser(
       String actorName, String browserType) {
     guardDuplicate(actorName);
     WebDriver driver = createBrowserDriver(browserType);
-    DRIVERS.put(actorName, driver);
-    ACTOR_TYPES.put(actorName, ActorType.WEB);
-    currentActor = actorName;
+    DRIVERS.get().put(actorName, driver);
+    ACTOR_TYPES.get().put(actorName, ActorType.WEB);
+    CURRENT_ACTOR.set(actorName);
     LOG.info("Opened {} browser for actor '{}'",
         browserType, actorName);
   }
@@ -68,7 +74,7 @@ public final class ActorManager {
    *
    * @param actorName    unique name (e.g. "MobileUser")
    * @param platformName {@code android} or {@code ios}
-   * @param appiumUrl    Appium server URL (e.g. http://127.0.0.1:4723)
+   * @param appiumUrl    Appium server URL
    * @param capabilities desired capabilities / options
    */
   public static void openMobileDevice(
@@ -79,9 +85,9 @@ public final class ActorManager {
     guardDuplicate(actorName);
     AppiumDriver driver =
         createMobileDriver(platformName, appiumUrl, capabilities);
-    DRIVERS.put(actorName, driver);
-    ACTOR_TYPES.put(actorName, ActorType.MOBILE);
-    currentActor = actorName;
+    DRIVERS.get().put(actorName, driver);
+    ACTOR_TYPES.get().put(actorName, ActorType.MOBILE);
+    CURRENT_ACTOR.set(actorName);
     LOG.info("Opened {} mobile device for actor '{}'",
         platformName, actorName);
   }
@@ -94,11 +100,11 @@ public final class ActorManager {
    * @param actorName the actor to switch to (must already exist)
    */
   public static void switchTo(String actorName) {
-    if (!DRIVERS.containsKey(actorName)) {
+    if (!DRIVERS.get().containsKey(actorName)) {
       throw new IllegalArgumentException(
           "No session open for actor: " + actorName);
     }
-    currentActor = actorName;
+    CURRENT_ACTOR.set(actorName);
   }
 
   /**
@@ -106,10 +112,11 @@ public final class ActorManager {
    * if no actor is active.
    */
   public static WebDriver currentDriver() {
-    if (currentActor == null) {
+    String actor = CURRENT_ACTOR.get();
+    if (actor == null) {
       return null;
     }
-    return DRIVERS.get(currentActor);
+    return DRIVERS.get().get(actor);
   }
 
   /**
@@ -128,8 +135,8 @@ public final class ActorManager {
 
   /** Returns {@code true} if at least one actor is active. */
   public static boolean hasActiveActor() {
-    return currentActor != null
-        && DRIVERS.containsKey(currentActor);
+    String actor = CURRENT_ACTOR.get();
+    return actor != null && DRIVERS.get().containsKey(actor);
   }
 
   /**
@@ -137,32 +144,34 @@ public final class ActorManager {
    * or {@code null} if none is active.
    */
   public static ActorType currentActorType() {
-    if (currentActor == null) {
+    String actor = CURRENT_ACTOR.get();
+    if (actor == null) {
       return null;
     }
-    return ACTOR_TYPES.get(currentActor);
+    return ACTOR_TYPES.get().get(actor);
   }
 
   // ── Cleanup ──────────────────────────────────────────────────────
 
   /** Quits every actor's session and resets all state. */
   public static void closeAll() {
-    DRIVERS.values().forEach(ActorManager::quitQuietly);
-    DRIVERS.clear();
-    ACTOR_TYPES.clear();
-    currentActor = null;
+    DRIVERS.get().values().forEach(ActorManager::quitQuietly);
+    DRIVERS.get().clear();
+    ACTOR_TYPES.get().clear();
+    CURRENT_ACTOR.remove();
   }
 
   // ── Private helpers ──────────────────────────────────────────────
 
   private static void guardDuplicate(String actorName) {
-    if (DRIVERS.containsKey(actorName)) {
+    if (DRIVERS.get().containsKey(actorName)) {
       throw new IllegalArgumentException(
           "Actor already has a session: " + actorName);
     }
   }
 
-  private static WebDriver createBrowserDriver(String browserType) {
+  private static WebDriver createBrowserDriver(
+      String browserType) {
     String type = browserType.trim().toLowerCase(Locale.ROOT);
     if ("chrome".equals(type)) {
       return new ChromeDriver();
@@ -178,7 +187,8 @@ public final class ActorManager {
       String platformName,
       URL appiumUrl,
       Capabilities capabilities) {
-    String platform = platformName.trim().toLowerCase(Locale.ROOT);
+    String platform =
+        platformName.trim().toLowerCase(Locale.ROOT);
     if ("android".equals(platform)) {
       return new AndroidDriver(appiumUrl, capabilities);
     }

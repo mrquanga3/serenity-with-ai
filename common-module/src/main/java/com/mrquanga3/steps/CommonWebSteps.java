@@ -229,6 +229,14 @@ public class CommonWebSteps {
     keywords.inputText(PropertiesLoader.get(locatorKey), text);
   }
 
+  /** Types a previously saved variable into a web field. */
+  @When("I enter saved variable {string} to {string} field")
+  public void enterSavedVariableToField(
+      String variableKey, String locatorKey) {
+    String value = Common.getVariable(variableKey);
+    keywords.inputText(PropertiesLoader.get(locatorKey), value);
+  }
+
   /** Clears the text-input element. */
   @When("I clear text of {string}")
   public void clearText(String locatorKey) {
