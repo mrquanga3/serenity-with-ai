@@ -6,9 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="module-demo-all-platforms" />
         <module name="common-module" />
-        <module name="web-module" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="web-module" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

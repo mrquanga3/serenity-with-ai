@@ -13,7 +13,7 @@ Locators are externalized to properties files — test code never hardcodes sele
 ```
 Feature file (.feature)
     ↓  Gherkin steps matched by annotations
-Common Step Definitions (CommonSteps.java — in common-module)
+Common Step Definitions (CommonWebSteps.java — in common-module)
     ↓  ~75 generic steps modelled after RF SeleniumLibrary
     ↓  actor management, save-to-variable via Common.globalVariables
     ↓  resolves locator keys and URL keys via PropertiesLoader
@@ -268,9 +268,9 @@ And I execute javascript "return document.readyState" then save to "state"
 
 ---
 
-## Common Step Definitions (CommonSteps)
+## Common Step Definitions (CommonWebSteps)
 
-Located in `common-module/src/main/java/com/mrquanga3/steps/CommonSteps.java`.
+Located in `common-module/src/main/java/com/mrquanga3/steps/CommonWebSteps.java`.
 ~75 generic Cucumber steps. Full reference by category:
 
 ### Actor Management
@@ -427,7 +427,7 @@ Located in `common-module/src/main/java/com/mrquanga3/steps/CommonSteps.java`.
 
 An `@After` hook automatically closes all actor browsers and clears global variables after each scenario.
 
-Domain-specific steps can be added in `web-module/src/test/java/com/mrquanga3/steps/`.
+Domain-specific steps can be added in `module-demo-all-platforms/src/test/java/com/mrquanga3/steps/`.
 
 ---
 
@@ -438,13 +438,14 @@ multiple browser sessions in a single scenario.
 
 ### How It Works
 
-1. `"{name}" opens a "{browser}" browser` — creates a named WebDriver (chrome/firefox)
-2. `switching to "{name}"` — all subsequent steps run in that actor's browser
-3. `WebKeywords.driver()` returns the active actor's driver when actors are present,
+1. `"{name}" opens a "{browser}" browser` — creates a named web browser (chrome/firefox)
+2. `"{name}" opens a mobile device "{profile}"` — creates a named Appium session
+3. `switching to "{name}"` — all subsequent steps run in that actor's session
+4. `WebKeywords.driver()` returns the active actor's driver when actors are present,
    otherwise falls back to the default Serenity-managed driver
-4. `@After` hook calls `ActorManager.closeAll()` to quit all browsers
+5. `@After` hook calls `ActorManager.closeAll()` to quit all sessions
 
-### Example
+### Web-Only Example
 
 ```gherkin
 Scenario: Two actors login simultaneously
@@ -460,6 +461,21 @@ Scenario: Two actors login simultaneously
   And I navigate to the "urlAdmin" page
   And I enter "admin" to "username.input" field
   And I click "login.button"
+```
+
+### Cross-Platform Example (Web + Mobile)
+
+```gherkin
+Scenario: Login web then search on mobile
+  Given "WebAdmin" opens a "chrome" browser
+  And I navigate to the "urlAdmin" page
+  And I enter "admin" to "username.input" field
+  And I get value of "username.input" then save to "adminAccount"
+  And I click "login.button"
+
+  Given "AndroidUser" opens a mobile device "android-emulator"
+  And I tap "message.searchIcon"
+  And I enter saved variable "adminAccount" to mobile field "message.searchInput"
 ```
 
 ### Backward Compatibility
@@ -485,6 +501,253 @@ public void selectOption(String locator, String optionText) {
   new Select(dropdown).selectByVisibleText(optionText);
 }
 ```
+
+---
+
+## Available Mobile Keywords (MobileKeywords)
+
+Locator strings use `type:value` format with mobile-specific prefixes:
+`id:`, `xpath:`, `accessibilityId:`, `uiAutomator:`, `classChain:`,
+`predicate:`, `className:`, `css:`.
+
+### Tap / Click
+
+| Method | Description |
+|---|---|
+| `tapElement(locator)` | Tap element |
+| `tapAtCoordinates(x, y)` | Tap at screen coordinates |
+| `longPressElement(locator)` | Long-press ~1 second |
+
+### Input
+
+| Method | Description |
+|---|---|
+| `inputText(locator, text)` | Clear and type text |
+| `clearText(locator)` | Clear field |
+| `hideKeyboard()` | Hide on-screen keyboard |
+
+### Element Getters (return String)
+
+| Method | Description |
+|---|---|
+| `getText(locator)` | Visible text |
+| `getElementAttribute(loc, attr)` | Any attribute |
+| `getElementCount(locator)` | Number of matches |
+| `getPageSource()` | Screen source XML |
+
+### Element Assertions
+
+| Method | Description |
+|---|---|
+| `verifyElementVisible(locator)` | Is visible |
+| `verifyElementNotVisible(locator)` | Is NOT visible |
+| `verifyElementEnabled(locator)` | Is enabled |
+| `verifyElementContains(loc, text)` | Contains text |
+| `verifyElementTextIs(loc, text)` | Exact text match |
+| `verifyElementAttributeIs(loc, attr, val)` | Attribute equals |
+| `verifyScreenContainsElement(locator)` | Element exists |
+| `verifyScreenNotContainsElement(locator)` | Element absent |
+
+### Gestures
+
+| Method | Description |
+|---|---|
+| `swipeUp()` | Swipe up |
+| `swipeDown()` | Swipe down |
+| `swipeLeft()` | Swipe left |
+| `swipeRight()` | Swipe right |
+| `scrollToText(text)` | Scroll to text (Android) |
+
+### App Lifecycle
+
+| Method | Description |
+|---|---|
+| `launchApp(appId)` | Activate app |
+| `closeApp(appId)` | Terminate app |
+| `resetApp(appId)` | Terminate + activate |
+| `getAppState(appId)` | Returns app state |
+
+### Device Actions
+
+| Method | Description |
+|---|---|
+| `setOrientation(orientation)` | Set LANDSCAPE/PORTRAIT |
+| `getOrientation()` | Returns orientation |
+| `captureScreenshot()` | Save to target/screenshots |
+
+### Waits
+
+| Method | Description |
+|---|---|
+| `waitUntilElementVisible(locator)` | Wait visible |
+| `waitUntilElementNotVisible(locator)` | Wait invisible |
+| `waitUntilElementEnabled(locator)` | Wait clickable |
+| `waitUntilElementContains(loc, text)` | Wait text |
+
+### Context Switching (Hybrid Apps)
+
+| Method | Description |
+|---|---|
+| `switchToContext(name)` | Switch to NATIVE_APP or WEBVIEW_* |
+| `getContexts()` | Returns comma-separated contexts |
+
+---
+
+## Common Mobile Step Definitions (CommonMobileSteps)
+
+Located in `common-module/src/main/java/com/mrquanga3/steps/CommonMobileSteps.java`.
+
+### Actor Management
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `{string} opens a mobile device {string}` | Open Appium session via device profile |
+
+### Tap / Click
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I tap {string}` | Tap by locator key |
+| `I tap at coordinates {int} and {int}` | Tap at screen position |
+| `I long press {string}` | Long-press element |
+
+### Input
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I enter {string} to mobile field {string}` | Type text |
+| `I enter saved variable {string} to mobile field {string}` | Type saved variable |
+| `I clear mobile field {string}` | Clear field |
+| `I hide keyboard` | Hide keyboard |
+
+### Getters (save to variable)
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I get text of mobile element {string} then save to {string}` | Save text |
+| `I get attribute {string} of mobile element {string} then save to {string}` | Save attribute |
+| `I get mobile element count of {string} then save to {string}` | Save count |
+| `I get mobile page source then save to {string}` | Save source XML |
+
+### Assertions
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `mobile element {string} should be visible` | Element visible |
+| `mobile element {string} should not be visible` | Element hidden |
+| `mobile element {string} should be enabled` | Enabled |
+| `mobile element {string} should contain text {string}` | Contains text |
+| `mobile element {string} text should be {string}` | Exact text |
+| `mobile element {string} attribute {string} should be {string}` | Attribute value |
+| `screen should contain mobile element {string}` | Element exists |
+| `screen should not contain mobile element {string}` | Element absent |
+
+### Gestures
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I swipe up` | Swipe up |
+| `I swipe down` | Swipe down |
+| `I swipe left` | Swipe left |
+| `I swipe right` | Swipe right |
+| `I scroll to text {string}` | Scroll to text (Android) |
+
+### App Lifecycle
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I launch app {string}` | Activate app |
+| `I close app {string}` | Terminate app |
+| `I reset app {string}` | Terminate + activate |
+| `I get app state of {string} then save to {string}` | Save app state |
+
+### Device Actions
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I set orientation to {string}` | Set orientation |
+| `I get orientation then save to {string}` | Save orientation |
+| `I capture mobile screenshot` | Capture screenshot |
+
+### Waits
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I wait until mobile element {string} is visible` | Wait visible |
+| `I wait until mobile element {string} is not visible` | Wait hidden |
+| `I wait until mobile element {string} is enabled` | Wait clickable |
+| `I wait until mobile element {string} contains text {string}` | Wait text |
+
+### Context Switching
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I switch to context {string}` | Switch context |
+| `I get contexts then save to {string}` | Save contexts |
+
+---
+
+## Mobile Device Profiles
+
+Device profiles are defined in properties files under
+`properties/mobile/`. The profile key maps to properties:
+
+```properties
+android-emulator.platformName = android
+android-emulator.appiumUrl = http://127.0.0.1:4723
+android-emulator.udid = emulator-5554
+android-emulator.appPackage = com.example.app
+android-emulator.appActivity = .ui.MainActivity
+```
+
+Supported platforms: `android` (UiAutomator2) and `ios` (XCUITest).
+
+---
+
+## Mobile Test Prerequisites
+
+Before running mobile or cross-platform tests, verify these prerequisites:
+
+### 1. Appium Server
+
+Appium must be running and accessible at the URL in the device profile
+(default: `http://127.0.0.1:4723`).
+
+```bash
+# Check Appium server status
+curl -s http://127.0.0.1:4723/status
+
+# Start Appium (if not running)
+appium
+```
+
+### 2. Android Emulator / iOS Simulator
+
+The target device must be booted and match the `udid` in the device profile.
+
+```bash
+# List connected Android devices/emulators
+adb devices
+
+# Expected output for android-emulator profile:
+# emulator-5554   device
+```
+
+### 3. Environment Variables
+
+| Variable | Purpose |
+|---|---|
+| `ANDROID_HOME` or `ANDROID_SDK_ROOT` | Android SDK location |
+| `JAVA_HOME` | Java 17+ |
+
+### 4. Pre-Run Checklist
+
+1. Start Appium server → confirm `curl http://127.0.0.1:4723/status` returns OK
+2. Boot emulator/device → confirm `adb devices` shows the expected UDID
+3. Verify the app under test is installed on the device
+4. Run tests: `mvn test -pl module-demo-all-platforms -am`
+
+If only running web tests, Appium and emulator are not required.
 
 ---
 

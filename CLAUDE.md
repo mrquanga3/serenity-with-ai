@@ -9,7 +9,7 @@ Multi-module Maven project demonstrating Serenity BDD with keyword-driven UI tes
 - **Group ID:** `com.mrquanga3`
 - **Language:** Java 17
 - **Build tool:** Maven (multi-module)
-- **Test framework:** Serenity BDD 4.1.20 + Cucumber 7 + JUnit 4
+- **Test framework:** Serenity BDD 4.1.20 + Cucumber 7 + JUnit 5
 - **Pattern:** Keyword-driven (no Page Object) — locators in `.properties` files
 
 ## Modules
@@ -17,33 +17,33 @@ Multi-module Maven project demonstrating Serenity BDD with keyword-driven UI tes
 | Module | Role |
 |---|---|
 | `common-module` | Generic reusable `WebKeywords` library (compile scope) |
-| `web-module` | Login feature files, step definitions, runner, locators |
+| `module-demo-all-platforms` | Login feature files, step definitions, runner, locators |
 
 See [docs/context/project-structure.md](docs/context/project-structure.md) for the full directory tree.
 
 ## Common Commands
 
 ```bash
-# Full build + static analysis + tests + Serenity report
+# Static analysis only (checkstyle + PMD, no feature tests)
+mvn clean test
+
+# Full build + static analysis + feature tests + Serenity report
 mvn clean verify
 
-# Run tests only (skips report aggregation)
-mvn test
+# Run feature tests in module-demo-all-platforms only
+mvn verify -pl module-demo-all-platforms -am
 
-# Run tests in web-module only
-mvn test -pl web-module -am
+# Skip static analysis for a quick test run
+mvn verify -pl module-demo-all-platforms -am -Dcheckstyle.skip=true -Dpmd.skip=true
 
-# Skip static analysis for a quick run
-mvn test -pl web-module -am -Dcheckstyle.skip=true -Dpmd.skip=true
+# Run only specific tagged tests
+mvn verify -pl module-demo-all-platforms -am -Dcucumber.filter.tags="@web"
 
 # Regenerate Serenity HTML report from existing test data
-mvn serenity:aggregate -pl web-module
-
-# Run a single test class
-mvn test -Dtest=CucumberTestRunner -pl web-module -am
+mvn serenity:aggregate -pl module-demo-all-platforms
 ```
 
-Serenity report: `web-module/target/site/serenity/index.html`
+Serenity report: `module-demo-all-platforms/target/site/serenity/index.html`
 
 ## Static Analysis
 

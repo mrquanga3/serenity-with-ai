@@ -20,7 +20,7 @@ import net.serenitybdd.annotations.Steps;
  * {@link Common#globalVariables()}.
  */
 @SuppressWarnings("PMD.GodClass")
-public class CommonSteps {
+public class CommonWebSteps {
 
   @Steps
   WebKeywords keywords;
@@ -227,6 +227,14 @@ public class CommonSteps {
   @When("I enter {string} to {string} field")
   public void enterTextToField(String text, String locatorKey) {
     keywords.inputText(PropertiesLoader.get(locatorKey), text);
+  }
+
+  /** Types a previously saved variable into a web field. */
+  @When("I enter saved variable {string} to {string} field")
+  public void enterSavedVariableToField(
+      String variableKey, String locatorKey) {
+    String value = Common.getVariable(variableKey);
+    keywords.inputText(PropertiesLoader.get(locatorKey), value);
   }
 
   /** Clears the text-input element. */

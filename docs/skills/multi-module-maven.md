@@ -5,7 +5,7 @@
 ```
 parent pom (packaging=pom)
 ├── common-module (packaging=jar, compile scope)
-└── web-module    (packaging=jar, test scope classes)
+└── module-demo-all-platforms    (packaging=jar, test scope classes)
 ```
 
 ---
@@ -35,16 +35,16 @@ belong in that module's own `<build><plugins>`, NOT in the parent.
 ## Sharing Test Utilities Across Modules
 
 **Problem:** Test-scoped classes (`src/test/java`) are NOT transitive.
-If `common-module` has `WebKeywords` as a test class, `web-module` cannot use it.
+If `common-module` has `WebKeywords` as a test class, `module-demo-all-platforms` cannot use it.
 
 **Solution:** Put shared utilities in `src/main/java` of `common-module` with compile scope.
 
 ```
 common-module/src/main/java/  ← compile scope, transitive to dependents
-web-module/src/test/java/     ← test scope, private to web-module
+module-demo-all-platforms/src/test/java/     ← test scope, private to module-demo-all-platforms
 ```
 
-`web-module/pom.xml` depends on `common-module` without scope (= compile default):
+`module-demo-all-platforms/pom.xml` depends on `common-module` without scope (= compile default):
 
 ```xml
 
@@ -63,7 +63,7 @@ Maven resolves build order automatically from dependency graph:
 
 1. Parent (pom) — always first
 2. `common-module` — no inter-module dependencies
-3. `web-module` — depends on `common-module`, so built after it
+3. `module-demo-all-platforms` — depends on `common-module`, so built after it
 
 ---
 
@@ -74,13 +74,13 @@ Maven resolves build order automatically from dependency graph:
 mvn clean verify
 
 # Build only one module (and its dependencies)
-mvn clean verify -pl web-module -am
+mvn clean verify -pl module-demo-all-platforms -am
 
 # Skip static analysis for a quick test run
-mvn test -pl web-module -am -Dcheckstyle.skip=true -Dpmd.skip=true
+mvn test -pl module-demo-all-platforms -am -Dcheckstyle.skip=true -Dpmd.skip=true
 
 # Run a specific feature tag (when tags are added)
-mvn test -pl web-module -am -Dcucumber.filter.tags="@login"
+mvn test -pl module-demo-all-platforms -am -Dcucumber.filter.tags="@login"
 ```
 
 ---

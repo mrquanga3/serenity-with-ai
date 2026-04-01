@@ -43,7 +43,7 @@ private WebDriver driver() {
 Keyword class: plain POJO with `@Step` annotations.
 Step def classes: inject keyword class via `@Steps`.
 
-**CommonSteps** (in `common-module/src/main/java`) holds all generic, reusable step definitions.
+**CommonWebSteps** (in `common-module/src/main/java`) holds all generic, reusable step definitions.
 Domain-specific steps can be added in `web-module/src/test/java` when needed.
 
 ```java
@@ -53,8 +53,8 @@ public class WebKeywords {
   public void navigateTo(String url) { ... }
 }
 
-// CommonSteps.java (in common-module src/main/java)
-public class CommonSteps {
+// CommonWebSteps.java (in common-module src/main/java)
+public class CommonWebSteps {
   @Steps
   WebKeywords keywords;
   @Given("I navigate to the {string} page")
@@ -90,18 +90,33 @@ Place in: `src/test/resources/serenity.conf`
 
 ---
 
-## Runner Class
+## Runner Class (JUnit 5)
 
 ```java
 
-@RunWith(CucumberWithSerenity.class)   // NOT @RunWith(Cucumber.class)
-@CucumberOptions(
-    features = "src/test/resources/features",
-    glue = "com.mrquanga3.steps",
-    plugin = {"pretty", "json:target/cucumber-reports/cucumber.json"}
-)
+@Suite
+@IncludeEngines("cucumber")
+@ConfigurationParameter(
+    key = FEATURES_PROPERTY_NAME,
+    value = "src/test/resources/features")
+@ConfigurationParameter(
+    key = GLUE_PROPERTY_NAME,
+    value = "com.mrquanga3.steps")
+@ConfigurationParameter(
+    key = PLUGIN_PROPERTY_NAME,
+    value = "pretty, json:target/cucumber-reports/cucumber.json")
 public class CucumberTestRunner {
 }
+```
+
+The runner uses JUnit Platform Suite (`@Suite` + `@IncludeEngines("cucumber")`)
+instead of the legacy JUnit 4 `@RunWith(CucumberWithSerenity.class)`.
+
+Cucumber configuration is also set in `junit-platform.properties`:
+
+```properties
+# Sequential mode (default — required for cross-platform tests with shared state)
+cucumber.execution.parallel.enabled=false
 ```
 
 The runner class name does NOT match default Surefire patterns.
@@ -127,4 +142,4 @@ mvn clean verify           # build + test + generate report
 mvn serenity:aggregate     # regenerate report from existing test data
 ```
 
-Report location: `web-module/target/site/serenity/index.html`
+Report location: `module-demo-all-platforms/target/site/serenity/index.html`
