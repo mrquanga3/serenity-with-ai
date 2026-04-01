@@ -345,6 +345,40 @@ public class CommonMobileSteps {
         PropertiesLoader.get(locatorKey), text);
   }
 
+  // ── Waits with custom timeout ───────────────────────────────────
+
+  /** Waits until the mobile element is visible within N seconds. */
+  @Then("I wait until mobile element {string} is visible within {int} seconds")
+  public void waitUntilMobileElementVisibleWithin(
+      String locatorKey, int seconds) {
+    mobileKeywords.waitUntilElementVisible(
+        PropertiesLoader.get(locatorKey), seconds);
+  }
+
+  /** Waits until the mobile element is not visible within N seconds. */
+  @Then("I wait until mobile element {string} is not visible within {int} seconds")
+  public void waitUntilMobileElementNotVisibleWithin(
+      String locatorKey, int seconds) {
+    mobileKeywords.waitUntilElementNotVisible(
+        PropertiesLoader.get(locatorKey), seconds);
+  }
+
+  /** Waits until the mobile element is enabled within N seconds. */
+  @Then("I wait until mobile element {string} is enabled within {int} seconds")
+  public void waitUntilMobileElementEnabledWithin(
+      String locatorKey, int seconds) {
+    mobileKeywords.waitUntilElementEnabled(
+        PropertiesLoader.get(locatorKey), seconds);
+  }
+
+  /** Waits until the mobile element contains text within N seconds. */
+  @Then("I wait until mobile element {string} contains text {string} within {int} seconds")
+  public void waitUntilMobileElementContainsTextWithin(
+      String locatorKey, String text, int seconds) {
+    mobileKeywords.waitUntilElementContains(
+        PropertiesLoader.get(locatorKey), text, seconds);
+  }
+
   // ── Context switching ───────────────────────────────────────────
 
   /** Switches to the named context (NATIVE_APP, WEBVIEW_*). */
@@ -385,6 +419,8 @@ public class CommonMobileSteps {
       opts.setApp(app);
     }
     opts.setCapability("autoGrantPermissions", true);
+    opts.setCapability(
+        "uiautomator2ServerLaunchTimeout", 60000);
     return opts;
   }
 

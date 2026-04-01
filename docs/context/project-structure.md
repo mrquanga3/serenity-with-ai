@@ -19,26 +19,37 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
 │       ├── common/
 │       │   └── Common.java         ← global variables (save-to-variable pattern)
 │       ├── keywords/
-│       │   └── WebKeywords.java    ← ~75 SeleniumLibrary-style keywords
+│       │   ├── WebKeywords.java    ← ~75 SeleniumLibrary-style web keywords
+│       │   └── MobileKeywords.java ← ~30 Appium mobile keywords
 │       ├── steps/
-│       │   └── CommonWebSteps.java    ← ~75 generic Cucumber step definitions
+│       │   ├── CommonWebSteps.java    ← ~75 generic web Cucumber step definitions
+│       │   └── CommonMobileSteps.java ← ~30 generic mobile Cucumber step definitions
 │       └── utils/
-│           ├── ActorManager.java   ← multi-actor browser session manager
+│           ├── ActorManager.java   ← multi-actor session manager (web + mobile)
 │           └── PropertiesLoader.java
 │
-└── module-demo-all-platforms/                     ← web UI test scenarios
+└── module-demo-all-platforms/                     ← web + mobile test scenarios
     ├── pom.xml
     └── src/test/
         ├── java/com/mrquanga3/
-        │   └── runner/CucumberTestRunner.java
+        │   └── runner/CucumberTestRunner.java  ← JUnit 5 Platform Suite runner
         └── resources/
-            ├── features/login/
-            │   ├── login.feature
-            │   └── login-multi-actor.feature
+            ├── features/
+            │   ├── login/
+            │   │   ├── login.feature
+            │   │   └── login-multi-actor.feature
+            │   ├── mobile/
+            │   │   └── message-app.feature     ← Android Messages app scenarios
+            │   └── cross-platform/
+            │       └── web-then-mobile.feature ← web login → mobile search
             ├── properties/
             │   ├── SIT/environment.properties  ← SIT env URLs + credentials
             │   ├── UAT/environment.properties  ← UAT env URLs + credentials
-            │   └── login/login.properties      ← locators (type:value, shared)
+            │   ├── login/login.properties      ← web locators (type:value)
+            │   └── mobile/
+            │       ├── android-emulator.properties ← device profile
+            │       └── message-app.properties      ← mobile locators
+            ├── junit-platform.properties       ← parallel execution config
             └── serenity.conf
 ```
 

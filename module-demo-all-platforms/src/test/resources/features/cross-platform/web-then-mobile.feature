@@ -1,3 +1,4 @@
+@cross-platform
 Feature: Cross-platform Web then Mobile
 
   Scenario: Login web then search Messages app on Android with the web account

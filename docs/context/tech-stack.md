@@ -8,7 +8,9 @@
 | Maven | 3.x | Build tool |
 | Serenity BDD | 4.1.20 | Test reporting + WebDriver lifecycle |
 | Cucumber | 7.15.0 | BDD feature files |
-| JUnit | 4.13.2 | Test runner (used with CucumberWithSerenity) |
+| JUnit Jupiter | 5.10.2 | Test runner (JUnit Platform Suite + Cucumber engine) |
+| JUnit Platform Suite | 1.10.2 | Suite runner for Cucumber discovery |
+| Appium Java Client | 9.3.0 | Mobile automation (Android + iOS) |
 | AssertJ | 3.25.3 | Fluent assertions inside keyword methods |
 | SLF4J Simple | 2.0.11 | Logging backend |
 | Checkstyle (Puppycrawl) | 10.14.2 | Google style enforcement |
@@ -19,13 +21,14 @@
 ### common-module (compile scope)
 - `serenity-core` — provides `@Step`, `Serenity.getWebdriverManager()`, Selenium
 - `assertj-core` — assertions in keyword methods
+- `appium java-client` — mobile automation (Android + iOS drivers)
 
 ### module-demo-all-platforms (test scope)
 - `common-module` — the keyword library
-- `serenity-cucumber` — Cucumber + Serenity integration
-- `serenity-junit` — JUnit + Serenity integration
-- `cucumber-java` + `cucumber-junit` — Cucumber runtime
-- `junit` — JUnit 4 runner
+- `serenity-cucumber` — Cucumber + Serenity integration (excludes `cucumber-junit`)
+- `serenity-junit5` — JUnit 5 + Serenity integration
+- `cucumber-java` + `cucumber-junit-platform-engine` — Cucumber runtime on JUnit Platform
+- `junit-jupiter` + `junit-platform-suite` — JUnit 5 runner
 - `slf4j-simple` — logging
 
 ## Why compile scope for common-module?

@@ -61,6 +61,11 @@ public class MobileKeywords {
         driver(), Duration.ofSeconds(DEFAULT_TIMEOUT_SECONDS));
   }
 
+  private WebDriverWait createWait(int seconds) {
+    return new WebDriverWait(
+        driver(), Duration.ofSeconds(seconds));
+  }
+
   private By parseLocator(String locator) {
     if (locator.startsWith("id:")) {
       return AppiumBy.id(locator.substring(3));
@@ -399,7 +404,7 @@ public class MobileKeywords {
 
   // ── Waits ───────────────────────────────────────────────────────
 
-  /** Waits until the element is visible. */
+  /** Waits until the element is visible (default timeout). */
   @Step("Wait until element '{0}' is visible")
   public void waitUntilElementVisible(String locator) {
     createWait().until(
@@ -407,7 +412,16 @@ public class MobileKeywords {
             parseLocator(locator)));
   }
 
-  /** Waits until the element is no longer visible. */
+  /** Waits until the element is visible within given seconds. */
+  @Step("Wait until element '{0}' is visible within {1}s")
+  public void waitUntilElementVisible(
+      String locator, int seconds) {
+    createWait(seconds).until(
+        ExpectedConditions.visibilityOfElementLocated(
+            parseLocator(locator)));
+  }
+
+  /** Waits until the element is no longer visible (default timeout). */
   @Step("Wait until element '{0}' is not visible")
   public void waitUntilElementNotVisible(String locator) {
     createWait().until(
@@ -415,7 +429,16 @@ public class MobileKeywords {
             parseLocator(locator)));
   }
 
-  /** Waits until the element is clickable. */
+  /** Waits until the element is not visible within given seconds. */
+  @Step("Wait until element '{0}' is not visible within {1}s")
+  public void waitUntilElementNotVisible(
+      String locator, int seconds) {
+    createWait(seconds).until(
+        ExpectedConditions.invisibilityOfElementLocated(
+            parseLocator(locator)));
+  }
+
+  /** Waits until the element is clickable (default timeout). */
   @Step("Wait until element '{0}' is enabled")
   public void waitUntilElementEnabled(String locator) {
     createWait().until(
@@ -423,12 +446,30 @@ public class MobileKeywords {
             parseLocator(locator)));
   }
 
-  /** Waits until the element's text contains the expected value. */
+  /** Waits until the element is clickable within given seconds. */
+  @Step("Wait until element '{0}' is enabled within {1}s")
+  public void waitUntilElementEnabled(
+      String locator, int seconds) {
+    createWait(seconds).until(
+        ExpectedConditions.elementToBeClickable(
+            parseLocator(locator)));
+  }
+
+  /** Waits until the element contains text (default timeout). */
   @Step("Wait until element '{0}' contains text '{1}'")
   public void waitUntilElementContains(
       String locator, String text) {
     createWait().until(ExpectedConditions.textToBePresentInElementLocated(
         parseLocator(locator), text));
+  }
+
+  /** Waits until the element contains text within given seconds. */
+  @Step("Wait until element '{0}' contains text '{1}' within {2}s")
+  public void waitUntilElementContains(
+      String locator, String text, int seconds) {
+    createWait(seconds).until(
+        ExpectedConditions.textToBePresentInElementLocated(
+            parseLocator(locator), text));
   }
 
   // ── Context switching (hybrid apps) ─────────────────────────────

@@ -1,3 +1,4 @@
+@web
 Feature: Multi-actor login to OpenCart Admin Panel
 
   Scenario: Two actors login with different browsers

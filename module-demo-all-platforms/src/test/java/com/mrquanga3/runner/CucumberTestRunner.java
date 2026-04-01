@@ -4,6 +4,8 @@ import static io.cucumber.junit.platform.engine.Constants.FEATURES_PROPERTY_NAME
 import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
+import net.serenitybdd.junit5.SerenityJUnit5Extension;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.Suite;
@@ -12,12 +14,17 @@ import org.junit.platform.suite.api.Suite;
  * JUnit 5 Platform Suite that discovers and executes all Cucumber
  * feature files with Serenity BDD reporting.
  *
+ * <p>Uses {@link SerenityJUnit5Extension} to explicitly enable
+ * Serenity lifecycle management (step recording, screenshots,
+ * report data collection).
+ *
  * <p>Run via: {@code mvn test}
  *
  * <p>Reports generated via: {@code mvn serenity:aggregate}
  */
 @Suite
 @IncludeEngines("cucumber")
+@ExtendWith(SerenityJUnit5Extension.class)
 @ConfigurationParameter(
     key = FEATURES_PROPERTY_NAME,
     value = "src/test/resources/features")
@@ -26,6 +33,8 @@ import org.junit.platform.suite.api.Suite;
     value = "com.mrquanga3.steps")
 @ConfigurationParameter(
     key = PLUGIN_PROPERTY_NAME,
-    value = "pretty, json:target/cucumber-reports/cucumber.json")
+    value = "pretty,"
+        + " json:target/cucumber-reports/cucumber.json,"
+        + " io.cucumber.core.plugin.SerenityReporterParallel")
 public class CucumberTestRunner {
 }

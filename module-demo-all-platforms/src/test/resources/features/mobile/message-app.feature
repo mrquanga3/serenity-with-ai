@@ -1,3 +1,4 @@
+@mobile
 Feature: Android Messages App
 
   Scenario: Open Messages app and search for a text

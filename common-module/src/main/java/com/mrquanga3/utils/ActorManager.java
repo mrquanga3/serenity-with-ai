@@ -3,11 +3,13 @@ package com.mrquanga3.utils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -63,6 +65,7 @@ public final class ActorManager {
     DRIVERS.get().put(actorName, driver);
     ACTOR_TYPES.get().put(actorName, ActorType.WEB);
     CURRENT_ACTOR.set(actorName);
+    bringWindowToFront(driver);
     LOG.info("Opened {} browser for actor '{}'",
         browserType, actorName);
   }
@@ -88,6 +91,7 @@ public final class ActorManager {
     DRIVERS.get().put(actorName, driver);
     ACTOR_TYPES.get().put(actorName, ActorType.MOBILE);
     CURRENT_ACTOR.set(actorName);
+    bringWindowToFront(driver);
     LOG.info("Opened {} mobile device for actor '{}'",
         platformName, actorName);
   }
@@ -105,6 +109,7 @@ public final class ActorManager {
           "No session open for actor: " + actorName);
     }
     CURRENT_ACTOR.set(actorName);
+    bringWindowToFront(DRIVERS.get().get(actorName));
   }
 
   /**
@@ -197,6 +202,48 @@ public final class ActorManager {
     }
     throw new IllegalArgumentException(
         "Unsupported mobile platform: " + platformName);
+  }
+
+  private static void bringWindowToFront(WebDriver driver) {
+    try {
+      if (driver instanceof AppiumDriver) {
+        activateOsWindow("Android Emulator");
+        return;
+      }
+      driver.switchTo().window(driver.getWindowHandle());
+      if (driver instanceof JavascriptExecutor js) {
+        js.executeScript("window.focus();");
+      }
+      String title = driver.getTitle();
+      if (title != null && !title.isEmpty()) {
+        activateOsWindow(title);
+      }
+    } catch (WebDriverException e) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Could not bring window to front: {}",
+            e.getMessage());
+      }
+    }
+  }
+
+  private static void activateOsWindow(String titleFragment) {
+    String os = System.getProperty("os.name", "")
+        .toLowerCase(Locale.ROOT);
+    if (!os.contains("win")) {
+      return;
+    }
+    try {
+      new ProcessBuilder("powershell", "-Command",
+          "(New-Object -ComObject WScript.Shell)"
+              + ".AppActivate('" + titleFragment + "')")
+          .redirectErrorStream(true)
+          .start();
+    } catch (IOException e) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Could not activate OS window '{}': {}",
+            titleFragment, e.getMessage());
+      }
+    }
   }
 
   private static void quitQuietly(WebDriver driver) {

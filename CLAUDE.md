@@ -9,7 +9,7 @@ Multi-module Maven project demonstrating Serenity BDD with keyword-driven UI tes
 - **Group ID:** `com.mrquanga3`
 - **Language:** Java 17
 - **Build tool:** Maven (multi-module)
-- **Test framework:** Serenity BDD 4.1.20 + Cucumber 7 + JUnit 4
+- **Test framework:** Serenity BDD 4.1.20 + Cucumber 7 + JUnit 5
 - **Pattern:** Keyword-driven (no Page Object) — locators in `.properties` files
 
 ## Modules
@@ -24,23 +24,23 @@ See [docs/context/project-structure.md](docs/context/project-structure.md) for t
 ## Common Commands
 
 ```bash
-# Full build + static analysis + tests + Serenity report
+# Static analysis only (checkstyle + PMD, no feature tests)
+mvn clean test
+
+# Full build + static analysis + feature tests + Serenity report
 mvn clean verify
 
-# Run tests only (skips report aggregation)
-mvn test
+# Run feature tests in module-demo-all-platforms only
+mvn verify -pl module-demo-all-platforms -am
 
-# Run tests in module-demo-all-platforms only
-mvn test -pl module-demo-all-platforms -am
+# Skip static analysis for a quick test run
+mvn verify -pl module-demo-all-platforms -am -Dcheckstyle.skip=true -Dpmd.skip=true
 
-# Skip static analysis for a quick run
-mvn test -pl module-demo-all-platforms -am -Dcheckstyle.skip=true -Dpmd.skip=true
+# Run only specific tagged tests
+mvn verify -pl module-demo-all-platforms -am -Dcucumber.filter.tags="@web"
 
 # Regenerate Serenity HTML report from existing test data
 mvn serenity:aggregate -pl module-demo-all-platforms
-
-# Run a single test class
-mvn test -Dtest=CucumberTestRunner -pl module-demo-all-platforms -am
 ```
 
 Serenity report: `module-demo-all-platforms/target/site/serenity/index.html`

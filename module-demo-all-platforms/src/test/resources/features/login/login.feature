@@ -1,3 +1,4 @@
+@web
 Feature: Login to OpenCart Admin Panel
 
   Scenario: Login successfully with valid credentials

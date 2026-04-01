@@ -62,7 +62,25 @@
       "Bash(mvn dependency:tree -pl module-demo-all-platforms -Dverbose)",
       "Bash(adb pull:*)",
       "Read(//tmp/**)",
-      "Bash(tr '>' '\\\\n')"
+      "Bash(tr '>' '\\\\n')",
+      "Bash(tasklist)",
+      "Bash(mvn test-compile:*)",
+      "Bash(WMIC PROCESS WHERE name=''java.exe'' GET ProcessId,CommandLine)",
+      "Bash(where appium:*)",
+      "Bash(appium:*)",
+      "Bash(grep -r -i \"parallel\\\\|threads\\\\|fork\\\\|concurrent\" . --include=*.xml --include=*.properties --include=*.conf --include=*.gradle --include=*.yml --include=*.yaml)",
+      "Bash(find . -type f -name *runner* -o -name *cucumber*)",
+      "Bash(find . -type f -name *Runner*.java)",
+      "Bash(powershell.exe -File - <<'PS1'\nGet-Process | Where-Object { $_.MainWindowTitle -ne '' } | Select-Object ProcessName, MainWindowTitle | Format-Table -AutoSize\nPS1)",
+      "Bash(powershell.exe -File - <<'PS1'\n\\(New-Object -ComObject WScript.Shell\\).AppActivate\\('Android Emulator'\\)\nPS1)",
+      "Bash(\"$JAVA_HOME/bin/jar\" tf:*)",
+      "Bash(python:*)",
+      "Bash(mvn checkstyle:check -pl common-module)",
+      "Bash(mvn serenity:aggregate -pl module-demo-all-platforms)",
+      "Bash(mvn verify:*)",
+      "Bash(start:*)",
+      "Bash(find 'D:/Automation Test with AI/serenity-with-ai/module-demo-all-platforms/target' -name *.json -path */serenity/*)",
+      "Bash(find 'D:/Automation Test with AI/serenity-with-ai/module-demo-all-platforms/target' -name *.json)"
     ]
   }
 }

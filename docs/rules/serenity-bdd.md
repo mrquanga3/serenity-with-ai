@@ -90,18 +90,33 @@ Place in: `src/test/resources/serenity.conf`
 
 ---
 
-## Runner Class
+## Runner Class (JUnit 5)
 
 ```java
 
-@RunWith(CucumberWithSerenity.class)   // NOT @RunWith(Cucumber.class)
-@CucumberOptions(
-    features = "src/test/resources/features",
-    glue = "com.mrquanga3.steps",
-    plugin = {"pretty", "json:target/cucumber-reports/cucumber.json"}
-)
+@Suite
+@IncludeEngines("cucumber")
+@ConfigurationParameter(
+    key = FEATURES_PROPERTY_NAME,
+    value = "src/test/resources/features")
+@ConfigurationParameter(
+    key = GLUE_PROPERTY_NAME,
+    value = "com.mrquanga3.steps")
+@ConfigurationParameter(
+    key = PLUGIN_PROPERTY_NAME,
+    value = "pretty, json:target/cucumber-reports/cucumber.json")
 public class CucumberTestRunner {
 }
+```
+
+The runner uses JUnit Platform Suite (`@Suite` + `@IncludeEngines("cucumber")`)
+instead of the legacy JUnit 4 `@RunWith(CucumberWithSerenity.class)`.
+
+Cucumber configuration is also set in `junit-platform.properties`:
+
+```properties
+# Sequential mode (default — required for cross-platform tests with shared state)
+cucumber.execution.parallel.enabled=false
 ```
 
 The runner class name does NOT match default Surefire patterns.
