@@ -33,6 +33,11 @@
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
         </dependency>
+        <!-- Serenity REST Assured: API testing with Serenity reporting -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-rest-assured</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -49,6 +49,11 @@
                 <version>${serenity.version}</version>
             </dependency>
             <dependency>
+                <groupId>net.serenity-bdd</groupId>
+                <artifactId>serenity-rest-assured</artifactId>
+                <version>${serenity.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-java</artifactId>
                 <version>${cucumber.version}</version>

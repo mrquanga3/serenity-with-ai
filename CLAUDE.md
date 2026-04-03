@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working with this repository.
 
 ## Project Overview
 
-Multi-module Maven project demonstrating Serenity BDD with keyword-driven UI testing and AI tooling.
+Multi-module Maven project demonstrating Serenity BDD with keyword-driven UI, mobile, and API testing and AI tooling.
 
 - **Group ID:** `com.mrquanga3`
 - **Language:** Java 17
@@ -16,8 +16,8 @@ Multi-module Maven project demonstrating Serenity BDD with keyword-driven UI tes
 
 | Module | Role |
 |---|---|
-| `common-module` | Generic reusable `WebKeywords` library (compile scope) |
-| `module-demo-all-platforms` | Login feature files, step definitions, runner, locators |
+| `common-module` | Generic reusable keyword libraries: `WebKeywords`, `MobileKeywords`, `ApiKeywords` (compile scope) |
+| `module-demo-all-platforms` | Feature files (web, mobile, API), step definitions, runner, locators |
 
 See [docs/context/project-structure.md](docs/context/project-structure.md) for the full directory tree.
 
@@ -36,7 +36,7 @@ mvn verify -pl module-demo-all-platforms -am
 # Skip static analysis for a quick test run
 mvn verify -pl module-demo-all-platforms -am -Dcheckstyle.skip=true -Dpmd.skip=true
 
-# Run only specific tagged tests
+# Run only specific tagged tests (runner defaults to @api)
 mvn verify -pl module-demo-all-platforms -am -Dcucumber.filter.tags="@web"
 
 # Regenerate Serenity HTML report from existing test data

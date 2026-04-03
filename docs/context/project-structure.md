@@ -2,7 +2,7 @@
 
 ## Overview
 
-Multi-module Maven project demonstrating Serenity BDD with keyword-driven testing and AI tooling.
+Multi-module Maven project demonstrating Serenity BDD with keyword-driven UI, mobile, and API testing and AI tooling.
 Group ID: `com.mrquanga3` | Java 17 | Maven
 
 ## Module Layout
@@ -20,10 +20,12 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
 │       │   └── Common.java         ← global variables (save-to-variable pattern)
 │       ├── keywords/
 │       │   ├── WebKeywords.java    ← ~75 SeleniumLibrary-style web keywords
-│       │   └── MobileKeywords.java ← ~30 Appium mobile keywords
+│       │   ├── MobileKeywords.java ← ~30 Appium mobile keywords
+│       │   └── ApiKeywords.java    ← REST API keywords (Serenity REST Assured)
 │       ├── steps/
 │       │   ├── CommonWebSteps.java    ← ~75 generic web Cucumber step definitions
-│       │   └── CommonMobileSteps.java ← ~30 generic mobile Cucumber step definitions
+│       │   ├── CommonMobileSteps.java ← ~30 generic mobile Cucumber step definitions
+│       │   └── CommonApiSteps.java    ← generic API Cucumber step definitions
 │       └── utils/
 │           ├── ActorManager.java   ← multi-actor session manager (web + mobile)
 │           └── PropertiesLoader.java
@@ -40,12 +42,15 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
             │   │   └── login-multi-actor.feature
             │   ├── mobile/
             │   │   └── message-app.feature     ← Android Messages app scenarios
+            │   ├── api/
+            │   │   └── api-demo.feature        ← REST API testing scenarios (@api)
             │   └── cross-platform/
             │       └── web-then-mobile.feature ← web login → mobile search
             ├── properties/
-            │   ├── SIT/environment.properties  ← SIT env URLs + credentials
-            │   ├── UAT/environment.properties  ← UAT env URLs + credentials
+            │   ├── SIT/environment.properties  ← SIT env URLs + credentials + apiBaseUrl
+            │   ├── UAT/environment.properties  ← UAT env URLs + credentials + apiBaseUrl
             │   ├── login/login.properties      ← web locators (type:value)
+            │   ├── api/api.properties          ← API endpoint paths
             │   └── mobile/
             │       ├── android-emulator.properties ← device profile
             │       └── message-app.properties      ← mobile locators
@@ -57,8 +62,8 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
 
 | Module          | Scope   | Purpose                                                      |
 |-----------------|---------|--------------------------------------------------------------|
-| `common-module` | compile | Keywords, common steps, multi-actor support (ActorManager)    |
-| `module-demo-all-platforms`    | test    | Feature files, locators, environment config, runner          |
+| `common-module` | compile | Keywords (Web, Mobile, API), common steps, multi-actor support (ActorManager) |
+| `module-demo-all-platforms`    | test    | Feature files (web, mobile, API), locators, environment config, runner        |
 
 ## Adding a New Page/Feature
 

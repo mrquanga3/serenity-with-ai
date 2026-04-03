@@ -13,18 +13,24 @@ Locators are externalized to properties files — test code never hardcodes sele
 ```
 Feature file (.feature)
     ↓  Gherkin steps matched by annotations
-Common Step Definitions (CommonWebSteps.java — in common-module)
-    ↓  ~75 generic steps modelled after RF SeleniumLibrary
+Common Step Definitions (in common-module)
+    ├── CommonWebSteps.java    ← ~75 generic web steps (RF SeleniumLibrary style)
+    ├── CommonMobileSteps.java ← ~30 generic mobile steps
+    └── CommonApiSteps.java    ← generic REST API steps
     ↓  actor management, save-to-variable via Common.globalVariables
-    ↓  resolves locator keys and URL keys via PropertiesLoader
-Keyword Library (WebKeywords.java — in common-module)
-    ↓  ~75 keyword methods with @Step annotations
-    ↓  uses ActorManager driver (multi-actor) or Serenity driver (single-actor)
-Browser(s) (Chrome / Firefox — one per actor, or single Serenity-managed)
+    ↓  resolves locator keys, URL keys, and ${var} placeholders via PropertiesLoader / Common.resolveVariables
+Keyword Libraries (in common-module)
+    ├── WebKeywords.java    ← ~75 web keyword methods with @Step annotations
+    ├── MobileKeywords.java ← ~30 mobile keyword methods
+    └── ApiKeywords.java    ← REST API keyword methods (Serenity REST Assured)
+Browser(s) / API Client
+    ├── Chrome / Firefox — one per actor, or single Serenity-managed
+    └── SerenityRest — REST Assured client with Serenity reporting
 
 Properties files (auto-loaded by PropertiesLoader)
-    ├── environment.properties  ← URLs, credentials (key=value)
-    └── login/login.properties  ← locators (key=type:value)
+    ├── {env}/environment.properties  ← URLs (incl. apiBaseUrl), credentials
+    ├── login/login.properties        ← web locators (key=type:value)
+    └── api/api.properties            ← API endpoint paths
 ```
 
 ---
@@ -56,6 +62,7 @@ Example (`SIT/environment.properties`):
 
 ```properties
 urlAdmin = http://103.245.237.118:8081/opencart/administrator/
+apiBaseUrl = https://jsonplaceholder.typicode.com
 adminUsername = admin
 adminPassword = admin
 ```
@@ -258,7 +265,37 @@ All keyword methods use 10-second `WebDriverWait` before interacting.
 3. Later steps can retrieve it via `Common.getVariable(key)`
 4. Variables are cleared automatically after each scenario (`@After` hook)
 
-### Example
+### Variable Resolution (`${varName}` Placeholders)
+
+`Common.resolveVariables(String)` replaces all `${varName}` placeholders in a string
+with values from `globalVariables()`. This is used automatically in API keywords for:
+- Request body, headers, query params (resolved at send time)
+- URL/endpoint paths (resolved in `sendRequest()`)
+- Assertion expected values and JSON path expressions
+
+Multiple variables work in a single string:
+
+```gherkin
+# Save values from first API call
+When I get API JSON path "id" then save to "postId"
+And I get API JSON path "userId" then save to "userId"
+
+# Use multiple variables in body, headers, URL, and assertions
+When I set API header "X-User" to "${userId}"
+And I set API request body to
+  """
+  {
+    "title": "Post ${postId} by user ${userId}",
+    "body": "Updated content",
+    "userId": ${userId}
+  }
+  """
+And I send a PUT request to "/posts/${postId}"
+Then the API response status code should be 200
+And the API JSON path "title" should be "Post ${postId} by user ${userId}"
+```
+
+### Example (Web)
 
 ```gherkin
 When I get text of "welcome.label" then save to "welcomeText"
@@ -748,6 +785,142 @@ adb devices
 4. Run tests: `mvn test -pl module-demo-all-platforms -am`
 
 If only running web tests, Appium and emulator are not required.
+
+---
+
+## Available API Keywords (ApiKeywords)
+
+REST API keyword library using Serenity REST Assured. Thread-safe per-thread state
+(base URL, headers, query params, body, response). All `${varName}` placeholders
+are resolved automatically via `Common.resolveVariables()`.
+
+### Session Management
+
+| Method | Description |
+|---|---|
+| `setBaseUrl(url)` | Set base URL for all requests |
+| `clearSession()` | Clear all API state |
+
+### Headers / Auth
+
+| Method | Description |
+|---|---|
+| `setHeader(name, value)` | Add/update request header |
+| `removeHeader(name)` | Remove request header |
+| `setBasicAuth(user, pass)` | Set Basic auth header |
+| `setBearerToken(token)` | Set Bearer token header |
+
+### Request Body / Query Params
+
+| Method | Description |
+|---|---|
+| `setRequestBody(body)` | Set request body |
+| `setQueryParam(name, value)` | Add/update query param |
+| `removeQueryParam(name)` | Remove query param |
+
+### HTTP Methods
+
+| Method | Description |
+|---|---|
+| `sendGet(endpoint)` | Send GET request |
+| `sendPost(endpoint)` | Send POST request |
+| `sendPut(endpoint)` | Send PUT request |
+| `sendPatch(endpoint)` | Send PATCH request |
+| `sendDelete(endpoint)` | Send DELETE request |
+
+### Response Getters (return String)
+
+| Method | Description |
+|---|---|
+| `getResponseBody()` | Full response body |
+| `getResponseStatusCode()` | Status code as string |
+| `getResponseHeader(name)` | Response header value |
+| `getJsonPathValue(jsonPath)` | Extract JSON path value |
+
+### Response Assertions
+
+| Method | Description |
+|---|---|
+| `verifyStatusCode(expected)` | Assert status code |
+| `verifyResponseContains(text)` | Body contains text |
+| `verifyResponseNotContains(text)` | Body not contains text |
+| `verifyJsonPathEquals(path, expected)` | JSON path equals |
+| `verifyJsonPathContains(path, expected)` | JSON path contains |
+
+---
+
+## Common API Step Definitions (CommonApiSteps)
+
+Located in `common-module/src/main/java/com/mrquanga3/steps/CommonApiSteps.java`.
+
+### Session Management
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I set API base URL to {string}` | Set base URL directly |
+| `I set API base URL from {string}` | Set base URL from properties key |
+
+### Headers / Auth
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I set API header {string} to {string}` | Add/update header |
+| `I remove API header {string}` | Remove header |
+| `I set API basic auth with {string} and {string}` | Basic auth directly |
+| `I set API basic auth from {string} and {string}` | Basic auth from properties |
+| `I set API bearer token {string}` | Bearer token directly |
+| `I set API bearer token from variable {string}` | Bearer token from saved variable |
+
+### Request Body / Query Params
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I set API request body {string}` | Set body inline |
+| `I set API request body to` (DocString) | Set body from multi-line |
+| `I set API request body from variable {string}` | Set body from saved variable |
+| `I set API query param {string} to {string}` | Add/update query param |
+| `I remove API query param {string}` | Remove query param |
+
+### Send Requests (direct URL)
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I send a GET request to {string}` | GET to direct URL/path |
+| `I send a POST request to {string}` | POST to direct URL/path |
+| `I send a PUT request to {string}` | PUT to direct URL/path |
+| `I send a PATCH request to {string}` | PATCH to direct URL/path |
+| `I send a DELETE request to {string}` | DELETE to direct URL/path |
+
+### Send Requests (from properties)
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I send a GET request to the {string} endpoint` | GET from properties key |
+| `I send a POST request to the {string} endpoint` | POST from properties key |
+| `I send a PUT request to the {string} endpoint` | PUT from properties key |
+| `I send a PATCH request to the {string} endpoint` | PATCH from properties key |
+| `I send a DELETE request to the {string} endpoint` | DELETE from properties key |
+
+### Response Getters (save to variable)
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `I get API response body then save to {string}` | Save response body |
+| `I get API response status then save to {string}` | Save status code |
+| `I get API response header {string} then save to {string}` | Save response header |
+| `I get API JSON path {string} then save to {string}` | Save JSON path value |
+
+### Response Assertions
+
+| Cucumber Expression | What It Does |
+|---|---|
+| `the API response status code should be {int}` | Assert status code |
+| `the API response body should contain {string}` | Body contains |
+| `the API response body should not contain {string}` | Body not contains |
+| `the API JSON path {string} should be {string}` | JSON path equals |
+| `the API JSON path {string} should contain {string}` | JSON path contains |
+
+An `@After` hook automatically clears API session state after each scenario.
 
 ---
 

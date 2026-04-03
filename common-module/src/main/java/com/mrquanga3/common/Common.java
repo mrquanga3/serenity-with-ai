@@ -2,6 +2,8 @@ package com.mrquanga3.common;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Thread-safe global shared state for the test session.
@@ -15,6 +17,10 @@ import java.util.Map;
  * parallel scenario execution does not cause cross-thread interference.
  */
 public final class Common {
+
+  /** Matches {@code ${varName}} placeholders in strings. */
+  private static final Pattern VAR_PATTERN =
+      Pattern.compile("\\$\\{([^}]+)\\}");
 
   private static final ThreadLocal<Map<String, String>>
       GLOBAL_VARIABLES =
@@ -44,6 +50,30 @@ public final class Common {
           "Global variable not found: " + key);
     }
     return GLOBAL_VARIABLES.get().get(key);
+  }
+
+  /**
+   * Replaces {@code ${varName}} placeholders in the given text
+   * with values from {@link #globalVariables()}.
+   *
+   * <p>Returns the original text unchanged if it contains no
+   * placeholders. Throws {@link IllegalArgumentException} if a
+   * referenced variable does not exist.
+   */
+  public static String resolveVariables(String text) {
+    if (text == null || !text.contains("${")) {
+      return text;
+    }
+    Matcher matcher = VAR_PATTERN.matcher(text);
+    StringBuilder result = new StringBuilder();
+    while (matcher.find()) {
+      String varName = matcher.group(1);
+      String value = getVariable(varName);
+      matcher.appendReplacement(
+          result, Matcher.quoteReplacement(value));
+    }
+    matcher.appendTail(result);
+    return result.toString();
   }
 
   /** Removes all saved variables (call between scenarios). */

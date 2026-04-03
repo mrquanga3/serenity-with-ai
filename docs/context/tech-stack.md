@@ -11,6 +11,7 @@
 | JUnit Jupiter | 5.10.2 | Test runner (JUnit Platform Suite + Cucumber engine) |
 | JUnit Platform Suite | 1.10.2 | Suite runner for Cucumber discovery |
 | Appium Java Client | 9.3.0 | Mobile automation (Android + iOS) |
+| Serenity REST Assured | 4.1.20 | API testing with Serenity reporting |
 | AssertJ | 3.25.3 | Fluent assertions inside keyword methods |
 | SLF4J Simple | 2.0.11 | Logging backend |
 | Checkstyle (Puppycrawl) | 10.14.2 | Google style enforcement |
@@ -20,6 +21,7 @@
 
 ### common-module (compile scope)
 - `serenity-core` — provides `@Step`, `Serenity.getWebdriverManager()`, Selenium
+- `serenity-rest-assured` — REST API testing with Serenity reporting (wraps REST Assured)
 - `assertj-core` — assertions in keyword methods
 - `appium java-client` — mobile automation (Android + iOS drivers)
 

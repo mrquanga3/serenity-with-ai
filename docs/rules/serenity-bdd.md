@@ -103,11 +103,17 @@ Place in: `src/test/resources/serenity.conf`
     key = GLUE_PROPERTY_NAME,
     value = "com.mrquanga3.steps")
 @ConfigurationParameter(
+    key = FILTER_TAGS_PROPERTY_NAME,
+    value = "@api")
+@ConfigurationParameter(
     key = PLUGIN_PROPERTY_NAME,
-    value = "pretty, json:target/cucumber-reports/cucumber.json")
+    value = "pretty, json:target/cucumber-reports/cucumber.json,"
+        + " io.cucumber.core.plugin.SerenityReporterParallel")
 public class CucumberTestRunner {
 }
 ```
+
+The runner defaults to `@api` tag. Override via command line: `-Dcucumber.filter.tags="@web"`.
 
 The runner uses JUnit Platform Suite (`@Suite` + `@IncludeEngines("cucumber")`)
 instead of the legacy JUnit 4 `@RunWith(CucumberWithSerenity.class)`.

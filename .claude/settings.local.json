@@ -80,7 +80,8 @@
       "Bash(mvn verify:*)",
       "Bash(start:*)",
       "Bash(find 'D:/Automation Test with AI/serenity-with-ai/module-demo-all-platforms/target' -name *.json -path */serenity/*)",
-      "Bash(find 'D:/Automation Test with AI/serenity-with-ai/module-demo-all-platforms/target' -name *.json)"
+      "Bash(find 'D:/Automation Test with AI/serenity-with-ai/module-demo-all-platforms/target' -name *.json)",
+      "Bash(grep -r \"RestAssured\\\\|HttpClient\\\\|retrofit\\\\|okhttp\" '/d/Automation Test with AI/serenity-with-ai' --include=*.java --include=*.xml)"
     ]
   }
 }
