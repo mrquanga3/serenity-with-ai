@@ -11,6 +11,8 @@ import java.util.Map;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import net.thucydides.core.webdriver.SerenityWebdriverManager;
+import net.thucydides.core.webdriver.ThucydidesWebDriverSupport;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -65,6 +67,7 @@ public final class ActorManager {
     DRIVERS.get().put(actorName, driver);
     ACTOR_TYPES.get().put(actorName, ActorType.WEB);
     CURRENT_ACTOR.set(actorName);
+    registerDriverWithSerenity(driver);
     bringWindowToFront(driver);
     LOG.info("Opened {} browser for actor '{}'",
         browserType, actorName);
@@ -91,6 +94,7 @@ public final class ActorManager {
     DRIVERS.get().put(actorName, driver);
     ACTOR_TYPES.get().put(actorName, ActorType.MOBILE);
     CURRENT_ACTOR.set(actorName);
+    registerDriverWithSerenity(driver);
     bringWindowToFront(driver);
     LOG.info("Opened {} mobile device for actor '{}'",
         platformName, actorName);
@@ -109,6 +113,7 @@ public final class ActorManager {
           "No session open for actor: " + actorName);
     }
     CURRENT_ACTOR.set(actorName);
+    registerDriverWithSerenity(DRIVERS.get().get(actorName));
     bringWindowToFront(DRIVERS.get().get(actorName));
   }
 
@@ -164,9 +169,17 @@ public final class ActorManager {
     DRIVERS.get().clear();
     ACTOR_TYPES.get().clear();
     CURRENT_ACTOR.remove();
+    ThucydidesWebDriverSupport.reset();
   }
 
   // ── Private helpers ──────────────────────────────────────────────
+
+  private static void registerDriverWithSerenity(
+      WebDriver driver) {
+    ThucydidesWebDriverSupport.useDriver(driver);
+    SerenityWebdriverManager.inThisTestThread()
+        .setCurrentActiveDriver(driver);
+  }
 
   private static void guardDuplicate(String actorName) {
     if (DRIVERS.get().containsKey(actorName)) {

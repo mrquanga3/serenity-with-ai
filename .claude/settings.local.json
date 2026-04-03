@@ -81,7 +81,21 @@
       "Bash(start:*)",
       "Bash(find 'D:/Automation Test with AI/serenity-with-ai/module-demo-all-platforms/target' -name *.json -path */serenity/*)",
       "Bash(find 'D:/Automation Test with AI/serenity-with-ai/module-demo-all-platforms/target' -name *.json)",
-      "Bash(grep -r \"RestAssured\\\\|HttpClient\\\\|retrofit\\\\|okhttp\" '/d/Automation Test with AI/serenity-with-ai' --include=*.java --include=*.xml)"
+      "Bash(grep -r \"RestAssured\\\\|HttpClient\\\\|retrofit\\\\|okhttp\" '/d/Automation Test with AI/serenity-with-ai' --include=*.java --include=*.xml)",
+      "Bash(grep -v '\\\\$')",
+      "Bash(jar -tf /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar)",
+      "Bash(\"$JAVA_HOME/bin/jar\" -tf /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar)",
+      "Bash(echo $JAVA_HOME)",
+      "Bash(\"/c/Program Files/Java/jdk-17/bin/jar.exe\" -tf /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar)",
+      "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -public -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.webdriver.ThucydidesWebDriverSupport)",
+      "Bash(\"/c/Program Files/Java/jdk-17/bin/javap.exe\" -public -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.serenitybdd.core.photography.Photographer 2>/dev/null)",
+      "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -public -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.steps.BaseStepListener)",
+      "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -public -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.steps.StepEventBus)",
+      "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -p -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.steps.BaseStepListener)",
+      "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -p -c -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.steps.BaseStepListener)",
+      "Bash(\"/c/Program Files/Java/jdk-17/bin/javap.exe\" -public -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.webdriver.WebdriverInstances 2>/dev/null)",
+      "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -public -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.webdriver.SerenityWebdriverManager)",
+      "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -p -c -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.webdriver.WebdriverInstances)"
     ]
   }
 }
