@@ -95,7 +95,13 @@
       "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -p -c -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.steps.BaseStepListener)",
       "Bash(\"/c/Program Files/Java/jdk-17/bin/javap.exe\" -public -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.webdriver.WebdriverInstances 2>/dev/null)",
       "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -public -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.webdriver.SerenityWebdriverManager)",
-      "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -p -c -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.webdriver.WebdriverInstances)"
+      "Bash('/c/Program Files/Java/jdk-17/bin/javap.exe' -p -c -classpath /c/Users/ADMIN/.m2/repository/net/serenity-bdd/serenity-core/4.1.20/serenity-core-4.1.20.jar net.thucydides.core.webdriver.WebdriverInstances)",
+      "Bash(find module-demo-all-platforms/target/failsafe-reports -name \"*.txt\" -exec cat {} \\\\;)",
+      "Bash(mysql:*)",
+      "Bash(where mysql:*)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/xampp/mysql/bin/**)",
+      "Read(//c/laragon/bin/**)"
     ]
   }
 }
