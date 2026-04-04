@@ -21,11 +21,13 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
 │       ├── keywords/
 │       │   ├── WebKeywords.java    ← ~75 SeleniumLibrary-style web keywords
 │       │   ├── MobileKeywords.java ← ~30 Appium mobile keywords
-│       │   └── ApiKeywords.java    ← REST API keywords (Serenity REST Assured)
+│       │   ├── ApiKeywords.java    ← REST API keywords (Serenity REST Assured)
+│       │   └── DbKeywords.java     ← database keywords (JDBC queries, assertions)
 │       ├── steps/
 │       │   ├── CommonWebSteps.java    ← ~75 generic web Cucumber step definitions
 │       │   ├── CommonMobileSteps.java ← ~30 generic mobile Cucumber step definitions
-│       │   └── CommonApiSteps.java    ← generic API Cucumber step definitions
+│       │   ├── CommonApiSteps.java    ← generic API Cucumber step definitions
+│       │   └── CommonDbSteps.java     ← generic DB Cucumber step definitions
 │       └── utils/
 │           ├── ActorManager.java   ← multi-actor session manager (web + mobile)
 │           └── PropertiesLoader.java
@@ -44,6 +46,8 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
             │   │   └── message-app.feature     ← Android Messages app scenarios
             │   ├── api/
             │   │   └── api-demo.feature        ← REST API testing scenarios (@api)
+            │   ├── db/
+            │   │   └── db-demo.feature         ← database testing scenarios
             │   └── cross-platform/
             │       └── web-then-mobile.feature ← web login → mobile search
             ├── properties/
@@ -62,8 +66,8 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
 
 | Module          | Scope   | Purpose                                                      |
 |-----------------|---------|--------------------------------------------------------------|
-| `common-module` | compile | Keywords (Web, Mobile, API), common steps, multi-actor support (ActorManager) |
-| `module-demo-all-platforms`    | test    | Feature files (web, mobile, API), locators, environment config, runner        |
+| `common-module` | compile | Keywords (Web, Mobile, API, DB), common steps, multi-actor support (ActorManager) |
+| `module-demo-all-platforms`    | test    | Feature files (web, mobile, API, DB), locators, environment config, runner        |
 
 ## Adding a New Page/Feature
 
