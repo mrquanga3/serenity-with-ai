@@ -58,6 +58,7 @@ Read these project docs:
 1. docs/skills/keyword-driven-testing.md
 2. docs/rules/code-style.md
 3. docs/rules/serenity-bdd.md
+4. docs/context/page-index.md
 
 ---
 
@@ -136,18 +137,22 @@ And I send a GET request to "/posts/${postId}/comments"
 4. Generate locator properties
 5. Add environment config (if needed)
 6. Create new keywords/steps (only if needed)
+7. Update `docs/context/page-index.md`:
+   - If you created a new properties file → add page entry (Quick Reference + detailed section)
+   - If you added scenarios to an existing page → update its Test Coverage section
+   - If you added new environment keys → update Environment Configuration section
 
-7. Validate:
+8. Validate:
 
 ```bash
 mvn verify -pl module-demo-all-platforms -am -Dcucumber.filter.tags="@<tag>" -Dcheckstyle.skip=true -Dpmd.skip=true
 ```
 
-8. If tests fail:
+9. If tests fail:
    - DO NOT fix here
    - Recommend using fix-test agent
 
-9. Run static analysis:
+10. Run static analysis:
 
 ```bash
 mvn clean test

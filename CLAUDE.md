@@ -59,6 +59,7 @@ Before writing any Java code, read:
 ### Context
 - [docs/context/project-structure.md](docs/context/project-structure.md) — module layout, how to add new pages
 - [docs/context/tech-stack.md](docs/context/tech-stack.md) — dependency versions, scope decisions, Serenity 4.x package changes
+- [docs/context/page-index.md](docs/context/page-index.md) — page/screen index: elements, endpoints, test coverage, navigation flows
 
 ### Rules
 - [docs/rules/code-style.md](docs/rules/code-style.md) — Google Checkstyle rules, PMD rules, common violations

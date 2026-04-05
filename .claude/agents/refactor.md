@@ -23,6 +23,7 @@ Read these project docs:
 2. `docs/rules/serenity-bdd.md` — Serenity 4.x annotation packages, WebDriver access
 3. `docs/skills/keyword-driven-testing.md` — keyword-driven pattern, available keywords and steps
 4. `docs/context/project-structure.md` — full directory tree and module layout
+5. `docs/context/page-index.md` — page/screen index: elements, endpoints, test coverage, navigation flows
 
 ## What to Check
 

@@ -63,6 +63,7 @@ Read these project docs:
 1. docs/rules/code-style.md
 2. docs/rules/serenity-bdd.md
 3. docs/skills/keyword-driven-testing.md
+4. docs/context/page-index.md
 
 ---
 
