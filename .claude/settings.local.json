@@ -110,7 +110,8 @@
       "Bash(gh --version)",
       "Bash(gh auth:*)",
       "Bash(printf \"protocol=https\\\\nhost=github.com\\\\n\")",
-      "Bash(git credential:*)"
+      "Bash(git credential:*)",
+      "Bash(git -C \"D:/Automation Test with AI/serenity-with-ai\" mv docs/context/page-index.md docs/rag/page-index.md)"
     ]
   }
 }

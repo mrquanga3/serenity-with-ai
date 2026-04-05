@@ -97,159 +97,159 @@ All keyword methods use 10-second `WebDriverWait` before interacting.
 
 ### Navigation
 
-| Method | Description |
-|---|---|
-| `navigateTo(url)` | Open a URL |
-| `goBack()` | Browser back button |
-| `reloadPage()` | Refresh the page |
-| `getLocation()` | Returns current URL |
+| Method            | Description         |
+|-------------------|---------------------|
+| `navigateTo(url)` | Open a URL          |
+| `goBack()`        | Browser back button |
+| `reloadPage()`    | Refresh the page    |
+| `getLocation()`   | Returns current URL |
 
 ### Window Management
 
-| Method | Description |
-|---|---|
-| `maximizeWindow()` | Maximize window |
-| `minimizeWindow()` | Minimize window |
-| `setWindowSize(w, h)` | Set window dimensions |
-| `setWindowPosition(x, y)` | Set window position |
-| `getWindowSize()` | Returns `widthxheight` |
-| `getWindowPosition()` | Returns `x,y` |
-| `switchWindow(nameOrHandle)` | Switch to window |
-| `closeWindow()` | Close current window |
-| `getWindowHandles()` | Returns comma-separated handles |
-| `getWindowTitles()` | Returns comma-separated titles |
+| Method                       | Description                     |
+|------------------------------|---------------------------------|
+| `maximizeWindow()`           | Maximize window                 |
+| `minimizeWindow()`           | Minimize window                 |
+| `setWindowSize(w, h)`        | Set window dimensions           |
+| `setWindowPosition(x, y)`    | Set window position             |
+| `getWindowSize()`            | Returns `widthxheight`          |
+| `getWindowPosition()`        | Returns `x,y`                   |
+| `switchWindow(nameOrHandle)` | Switch to window                |
+| `closeWindow()`              | Close current window            |
+| `getWindowHandles()`         | Returns comma-separated handles |
+| `getWindowTitles()`          | Returns comma-separated titles  |
 
 ### Frame Management
 
-| Method | Description |
-|---|---|
-| `selectFrame(locator)` | Switch to frame |
-| `unselectFrame()` | Switch to default content |
+| Method                 | Description               |
+|------------------------|---------------------------|
+| `selectFrame(locator)` | Switch to frame           |
+| `unselectFrame()`      | Switch to default content |
 
 ### Click / Mouse Actions
 
-| Method | Description |
-|---|---|
-| `clickElement(locator)` | Click element |
-| `doubleClickElement(locator)` | Double-click element |
-| `clickElementAtCoordinates(loc, x, y)` | Click at offset |
-| `contextClickElement(locator)` | Right-click |
-| `mouseOver(locator)` | Hover over element |
-| `mouseOut(locator)` | Move mouse away |
-| `dragAndDrop(source, target)` | Drag and drop |
-| `dragAndDropByOffset(loc, x, y)` | Drag by pixel offset |
+| Method                                 | Description          |
+|----------------------------------------|----------------------|
+| `clickElement(locator)`                | Click element        |
+| `doubleClickElement(locator)`          | Double-click element |
+| `clickElementAtCoordinates(loc, x, y)` | Click at offset      |
+| `contextClickElement(locator)`         | Right-click          |
+| `mouseOver(locator)`                   | Hover over element   |
+| `mouseOut(locator)`                    | Move mouse away      |
+| `dragAndDrop(source, target)`          | Drag and drop        |
+| `dragAndDropByOffset(loc, x, y)`       | Drag by pixel offset |
 
 ### Keyboard / Input
 
-| Method | Description |
-|---|---|
-| `inputText(locator, text)` | Clear and type text |
-| `clearElementText(locator)` | Clear field |
+| Method                       | Description             |
+|------------------------------|-------------------------|
+| `inputText(locator, text)`   | Clear and type text     |
+| `clearElementText(locator)`  | Clear field             |
 | `pressKey(locator, keyName)` | Press key (ENTER, TAB…) |
 
 ### Element Getters (return String)
 
-| Method | Description |
-|---|---|
-| `getText(locator)` | Visible text |
-| `getValue(locator)` | Value attribute |
-| `getElementAttribute(loc, attr)` | Any attribute |
-| `getElementCount(locator)` | Number of matches |
+| Method                           | Description       |
+|----------------------------------|-------------------|
+| `getText(locator)`               | Visible text      |
+| `getValue(locator)`              | Value attribute   |
+| `getElementAttribute(loc, attr)` | Any attribute     |
+| `getElementCount(locator)`       | Number of matches |
 
 ### Element Assertions
 
-| Method | Description |
-|---|---|
-| `verifyElementVisible(locator)` | Is visible |
-| `verifyElementNotVisible(locator)` | Is NOT visible |
-| `verifyElementEnabled(locator)` | Is enabled |
-| `verifyElementDisabled(locator)` | Is disabled |
-| `verifyElementFocused(locator)` | Is focused |
-| `verifyElementContains(loc, text)` | Contains text |
-| `verifyElementNotContains(loc, text)` | Not contains text |
-| `verifyElementTextIs(loc, text)` | Exact text match |
-| `verifyElementAttributeIs(loc, attr, val)` | Attribute equals |
+| Method                                     | Description       |
+|--------------------------------------------|-------------------|
+| `verifyElementVisible(locator)`            | Is visible        |
+| `verifyElementNotVisible(locator)`         | Is NOT visible    |
+| `verifyElementEnabled(locator)`            | Is enabled        |
+| `verifyElementDisabled(locator)`           | Is disabled       |
+| `verifyElementFocused(locator)`            | Is focused        |
+| `verifyElementContains(loc, text)`         | Contains text     |
+| `verifyElementNotContains(loc, text)`      | Not contains text |
+| `verifyElementTextIs(loc, text)`           | Exact text match  |
+| `verifyElementAttributeIs(loc, attr, val)` | Attribute equals  |
 
 ### Page / URL / Title Assertions
 
-| Method | Description |
-|---|---|
-| `pageShouldContainText(text)` | Page has text |
-| `pageShouldNotContainText(text)` | Page lacks text |
-| `pageShouldContainElement(locator)` | Element exists |
-| `pageShouldNotContainElement(locator)` | Element absent |
-| `verifyUrlContains(fragment)` | URL contains |
-| `verifyLocationIs(url)` | URL equals |
-| `getTitle()` | Returns page title |
-| `verifyTitleIs(title)` | Title equals |
-| `getPageSource()` | Returns HTML source |
+| Method                                 | Description         |
+|----------------------------------------|---------------------|
+| `pageShouldContainText(text)`          | Page has text       |
+| `pageShouldNotContainText(text)`       | Page lacks text     |
+| `pageShouldContainElement(locator)`    | Element exists      |
+| `pageShouldNotContainElement(locator)` | Element absent      |
+| `verifyUrlContains(fragment)`          | URL contains        |
+| `verifyLocationIs(url)`                | URL equals          |
+| `getTitle()`                           | Returns page title  |
+| `verifyTitleIs(title)`                 | Title equals        |
+| `getPageSource()`                      | Returns HTML source |
 
 ### Checkbox / Radio / Dropdown
 
-| Method | Description |
-|---|---|
-| `selectCheckbox(locator)` | Check |
-| `unselectCheckbox(locator)` | Uncheck |
-| `verifyCheckboxSelected(locator)` | Assert checked |
-| `verifyCheckboxNotSelected(locator)` | Assert unchecked |
-| `selectRadioButton(locator)` | Select radio |
-| `verifyRadioButtonSelected(locator)` | Assert selected |
+| Method                                  | Description         |
+|-----------------------------------------|---------------------|
+| `selectCheckbox(locator)`               | Check               |
+| `unselectCheckbox(locator)`             | Uncheck             |
+| `verifyCheckboxSelected(locator)`       | Assert checked      |
+| `verifyCheckboxNotSelected(locator)`    | Assert unchecked    |
+| `selectRadioButton(locator)`            | Select radio        |
+| `verifyRadioButtonSelected(locator)`    | Assert selected     |
 | `verifyRadioButtonNotSelected(locator)` | Assert not selected |
-| `selectFromListByLabel(loc, label)` | Select by text |
-| `selectFromListByValue(loc, value)` | Select by value |
-| `selectFromListByIndex(loc, index)` | Select by index |
-| `unselectAllFromList(locator)` | Deselect all |
-| `getSelectedListLabel(locator)` | Selected label |
-| `getSelectedListValue(locator)` | Selected value |
+| `selectFromListByLabel(loc, label)`     | Select by text      |
+| `selectFromListByValue(loc, value)`     | Select by value     |
+| `selectFromListByIndex(loc, index)`     | Select by index     |
+| `unselectAllFromList(locator)`          | Deselect all        |
+| `getSelectedListLabel(locator)`         | Selected label      |
+| `getSelectedListValue(locator)`         | Selected value      |
 
 ### Table
 
-| Method | Description |
-|---|---|
-| `getTableCell(loc, row, col)` | Cell text (1-based) |
-| `verifyTableContains(loc, text)` | Table has text |
-| `verifyTableCellContains(loc, r, c, text)` | Cell has text |
+| Method                                     | Description         |
+|--------------------------------------------|---------------------|
+| `getTableCell(loc, row, col)`              | Cell text (1-based) |
+| `verifyTableContains(loc, text)`           | Table has text      |
+| `verifyTableCellContains(loc, r, c, text)` | Cell has text       |
 
 ### Form / Alert / Cookie / JS / Screenshot
 
-| Method | Description |
-|---|---|
-| `submitForm(locator)` | Submit form |
-| `chooseFile(locator, path)` | File upload |
-| `acceptAlert()` | Accept, return message |
-| `dismissAlert()` | Dismiss, return message |
-| `verifyAlertPresent()` | Alert exists |
-| `verifyAlertNotPresent()` | No alert |
-| `inputTextIntoAlert(text)` | Type into prompt |
-| `addCookie(name, value)` | Add cookie |
-| `deleteCookie(name)` | Delete cookie |
-| `deleteAllCookies()` | Delete all |
-| `getCookieValue(name)` | Cookie value |
-| `executeJavascript(code)` | Run JS, return result |
-| `capturePageScreenshot()` | Full-page screenshot |
-| `captureElementScreenshot(loc)` | Element screenshot |
+| Method                          | Description             |
+|---------------------------------|-------------------------|
+| `submitForm(locator)`           | Submit form             |
+| `chooseFile(locator, path)`     | File upload             |
+| `acceptAlert()`                 | Accept, return message  |
+| `dismissAlert()`                | Dismiss, return message |
+| `verifyAlertPresent()`          | Alert exists            |
+| `verifyAlertNotPresent()`       | No alert                |
+| `inputTextIntoAlert(text)`      | Type into prompt        |
+| `addCookie(name, value)`        | Add cookie              |
+| `deleteCookie(name)`            | Delete cookie           |
+| `deleteAllCookies()`            | Delete all              |
+| `getCookieValue(name)`          | Cookie value            |
+| `executeJavascript(code)`       | Run JS, return result   |
+| `capturePageScreenshot()`       | Full-page screenshot    |
+| `captureElementScreenshot(loc)` | Element screenshot      |
 
 ### Wait Keywords
 
-| Method | Description |
-|---|---|
-| `waitUntilElementVisible(locator)` | Wait visible |
-| `waitUntilElementNotVisible(locator)` | Wait invisible |
-| `waitUntilElementEnabled(locator)` | Wait clickable |
-| `waitUntilElementContains(loc, text)` | Wait text in element |
-| `waitUntilPageContainsText(text)` | Wait text in page |
-| `waitUntilPageNotContainsText(text)` | Wait text gone |
-| `waitUntilPageContainsElement(locator)` | Wait element in DOM |
-| `waitUntilPageNotContainsElement(loc)` | Wait element gone |
-| `waitUntilLocationIs(url)` | Wait URL equals |
-| `waitUntilLocationContains(fragment)` | Wait URL contains |
+| Method                                  | Description          |
+|-----------------------------------------|----------------------|
+| `waitUntilElementVisible(locator)`      | Wait visible         |
+| `waitUntilElementNotVisible(locator)`   | Wait invisible       |
+| `waitUntilElementEnabled(locator)`      | Wait clickable       |
+| `waitUntilElementContains(loc, text)`   | Wait text in element |
+| `waitUntilPageContainsText(text)`       | Wait text in page    |
+| `waitUntilPageNotContainsText(text)`    | Wait text gone       |
+| `waitUntilPageContainsElement(locator)` | Wait element in DOM  |
+| `waitUntilPageNotContainsElement(loc)`  | Wait element gone    |
+| `waitUntilLocationIs(url)`              | Wait URL equals      |
+| `waitUntilLocationContains(fragment)`   | Wait URL contains    |
 
 ### Element Utilities
 
-| Method | Description |
-|---|---|
+| Method                           | Description      |
+|----------------------------------|------------------|
 | `scrollElementIntoView(locator)` | Scroll into view |
-| `setFocusToElement(locator)` | Set focus |
+| `setFocusToElement(locator)`     | Set focus        |
 
 ---
 
@@ -269,6 +269,7 @@ All keyword methods use 10-second `WebDriverWait` before interacting.
 
 `Common.resolveVariables(String)` replaces all `${varName}` placeholders in a string
 with values from `globalVariables()`. This is used automatically in API keywords for:
+
 - Request body, headers, query params (resolved at send time)
 - URL/endpoint paths (resolved in `sendRequest()`)
 - Assertion expected values and JSON path expressions
@@ -312,155 +313,155 @@ Located in `common-module/src/main/java/com/mrquanga3/steps/CommonWebSteps.java`
 
 ### Actor Management
 
-| Cucumber Expression | What It Does |
-|---|---|
+| Cucumber Expression                 | What It Does               |
+|-------------------------------------|----------------------------|
 | `{string} opens a {string} browser` | Open named browser session |
-| `switching to {string}` | Switch to actor's browser |
+| `switching to {string}`             | Switch to actor's browser  |
 
 ### Navigation
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I navigate to {string}` | Open URL directly |
-| `I navigate to the {string} page` | Resolve URL key from properties |
-| `I go back` | Browser back |
-| `I reload page` | Refresh |
-| `I get location then save to {string}` | Save current URL |
+| Cucumber Expression                    | What It Does                    |
+|----------------------------------------|---------------------------------|
+| `I navigate to {string}`               | Open URL directly               |
+| `I navigate to the {string} page`      | Resolve URL key from properties |
+| `I go back`                            | Browser back                    |
+| `I reload page`                        | Refresh                         |
+| `I get location then save to {string}` | Save current URL                |
 
 ### Window / Frame
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I maximize browser window` | Maximize |
-| `I minimize browser window` | Minimize |
-| `I set window size to {int} x {int}` | Set size |
-| `I set window position to {int} and {int}` | Set position |
-| `I get window size then save to {string}` | Save size |
-| `I get window position then save to {string}` | Save position |
-| `I switch window {string}` | Switch by name/handle |
-| `I close window` | Close tab |
-| `I get window handles then save to {string}` | Save handles |
-| `I get window titles then save to {string}` | Save titles |
-| `I select frame {string}` | Enter frame |
-| `I unselect frame` | Exit frame |
+| Cucumber Expression                           | What It Does          |
+|-----------------------------------------------|-----------------------|
+| `I maximize browser window`                   | Maximize              |
+| `I minimize browser window`                   | Minimize              |
+| `I set window size to {int} x {int}`          | Set size              |
+| `I set window position to {int} and {int}`    | Set position          |
+| `I get window size then save to {string}`     | Save size             |
+| `I get window position then save to {string}` | Save position         |
+| `I switch window {string}`                    | Switch by name/handle |
+| `I close window`                              | Close tab             |
+| `I get window handles then save to {string}`  | Save handles          |
+| `I get window titles then save to {string}`   | Save titles           |
+| `I select frame {string}`                     | Enter frame           |
+| `I unselect frame`                            | Exit frame            |
 
 ### Click / Mouse
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I click {string}` | Click by locator key |
-| `I double click {string}` | Double-click |
-| `I click {string} at coordinates {int} and {int}` | Click at offset |
-| `I right click {string}` | Context menu |
-| `I mouse over {string}` | Hover |
-| `I mouse out from {string}` | Move away |
-| `I drag {string} and drop to {string}` | Drag & drop |
-| `I drag {string} and drop by offset {int} and {int}` | Drag by pixels |
+| Cucumber Expression                                  | What It Does         |
+|------------------------------------------------------|----------------------|
+| `I click {string}`                                   | Click by locator key |
+| `I double click {string}`                            | Double-click         |
+| `I click {string} at coordinates {int} and {int}`    | Click at offset      |
+| `I right click {string}`                             | Context menu         |
+| `I mouse over {string}`                              | Hover                |
+| `I mouse out from {string}`                          | Move away            |
+| `I drag {string} and drop to {string}`               | Drag & drop          |
+| `I drag {string} and drop by offset {int} and {int}` | Drag by pixels       |
 
 ### Input
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I enter {string} to {string} field` | Type text |
-| `I clear text of {string}` | Clear field |
-| `I press key {string} on {string}` | Press key |
+| Cucumber Expression                  | What It Does |
+|--------------------------------------|--------------|
+| `I enter {string} to {string} field` | Type text    |
+| `I clear text of {string}`           | Clear field  |
+| `I press key {string} on {string}`   | Press key    |
 
 ### Getters (save to variable)
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I get text of {string} then save to {string}` | Save text |
-| `I get value of {string} then save to {string}` | Save value attr |
-| `I get attribute {string} of {string} then save to {string}` | Save attribute |
-| `I get element count of {string} then save to {string}` | Save count |
-| `I get title then save to {string}` | Save page title |
-| `I get page source then save to {string}` | Save HTML |
-| `I get selected label of {string} then save to {string}` | Save dropdown label |
-| `I get selected value of {string} then save to {string}` | Save dropdown value |
-| `I get cell at row {int} column {int} of table {string} then save to {string}` | Save cell text |
-| `I get cookie {string} then save to {string}` | Save cookie value |
-| `I execute javascript {string} then save to {string}` | Save JS result |
-| `I accept alert then save to {string}` | Save alert message |
-| `I dismiss alert then save to {string}` | Save alert message |
+| Cucumber Expression                                                            | What It Does        |
+|--------------------------------------------------------------------------------|---------------------|
+| `I get text of {string} then save to {string}`                                 | Save text           |
+| `I get value of {string} then save to {string}`                                | Save value attr     |
+| `I get attribute {string} of {string} then save to {string}`                   | Save attribute      |
+| `I get element count of {string} then save to {string}`                        | Save count          |
+| `I get title then save to {string}`                                            | Save page title     |
+| `I get page source then save to {string}`                                      | Save HTML           |
+| `I get selected label of {string} then save to {string}`                       | Save dropdown label |
+| `I get selected value of {string} then save to {string}`                       | Save dropdown value |
+| `I get cell at row {int} column {int} of table {string} then save to {string}` | Save cell text      |
+| `I get cookie {string} then save to {string}`                                  | Save cookie value   |
+| `I execute javascript {string} then save to {string}`                          | Save JS result      |
+| `I accept alert then save to {string}`                                         | Save alert message  |
+| `I dismiss alert then save to {string}`                                        | Save alert message  |
 
 ### Assertions
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I should see {string}` | Element visible |
-| `element {string} should not be visible` | Element hidden |
-| `element {string} should be enabled` | Enabled |
-| `element {string} should be disabled` | Disabled |
-| `element {string} should be focused` | Focused |
-| `element {string} should contain text {string}` | Contains text |
-| `element {string} should not contain text {string}` | Not contains |
-| `element {string} text should be {string}` | Exact text |
-| `element {string} attribute {string} should be {string}` | Attribute value |
-| `page should contain text {string}` | Page has text |
-| `page should not contain text {string}` | Page lacks text |
-| `page should contain element {string}` | Element exists |
-| `page should not contain element {string}` | Element absent |
-| `the URL should contain {string}` | URL contains |
-| `the URL should be {string}` | URL equals |
-| `the title should be {string}` | Title equals |
-| `checkbox {string} should be selected` | Checked |
-| `checkbox {string} should not be selected` | Unchecked |
-| `radio button {string} should be selected` | Selected |
-| `radio button {string} should not be selected` | Not selected |
-| `table {string} should contain {string}` | Table has text |
-| `cell at row {int} column {int} of table {string} should contain {string}` | Cell has text |
-| `alert should be present` | Alert exists |
-| `alert should not be present` | No alert |
+| Cucumber Expression                                                        | What It Does    |
+|----------------------------------------------------------------------------|-----------------|
+| `I should see {string}`                                                    | Element visible |
+| `element {string} should not be visible`                                   | Element hidden  |
+| `element {string} should be enabled`                                       | Enabled         |
+| `element {string} should be disabled`                                      | Disabled        |
+| `element {string} should be focused`                                       | Focused         |
+| `element {string} should contain text {string}`                            | Contains text   |
+| `element {string} should not contain text {string}`                        | Not contains    |
+| `element {string} text should be {string}`                                 | Exact text      |
+| `element {string} attribute {string} should be {string}`                   | Attribute value |
+| `page should contain text {string}`                                        | Page has text   |
+| `page should not contain text {string}`                                    | Page lacks text |
+| `page should contain element {string}`                                     | Element exists  |
+| `page should not contain element {string}`                                 | Element absent  |
+| `the URL should contain {string}`                                          | URL contains    |
+| `the URL should be {string}`                                               | URL equals      |
+| `the title should be {string}`                                             | Title equals    |
+| `checkbox {string} should be selected`                                     | Checked         |
+| `checkbox {string} should not be selected`                                 | Unchecked       |
+| `radio button {string} should be selected`                                 | Selected        |
+| `radio button {string} should not be selected`                             | Not selected    |
+| `table {string} should contain {string}`                                   | Table has text  |
+| `cell at row {int} column {int} of table {string} should contain {string}` | Cell has text   |
+| `alert should be present`                                                  | Alert exists    |
+| `alert should not be present`                                              | No alert        |
 
 ### Checkbox / Radio / Dropdown
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I select checkbox {string}` | Check |
-| `I unselect checkbox {string}` | Uncheck |
-| `I select radio button {string}` | Select radio |
-| `I select {string} from {string} dropdown` | By label |
-| `I select value {string} from {string} dropdown` | By value |
-| `I select index {int} from {string} dropdown` | By index |
-| `I unselect all from {string} dropdown` | Deselect all |
+| Cucumber Expression                              | What It Does |
+|--------------------------------------------------|--------------|
+| `I select checkbox {string}`                     | Check        |
+| `I unselect checkbox {string}`                   | Uncheck      |
+| `I select radio button {string}`                 | Select radio |
+| `I select {string} from {string} dropdown`       | By label     |
+| `I select value {string} from {string} dropdown` | By value     |
+| `I select index {int} from {string} dropdown`    | By index     |
+| `I unselect all from {string} dropdown`          | Deselect all |
 
 ### Form / Alert / Cookie / JS / Screenshot
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I submit form {string}` | Submit |
-| `I choose file {string} for {string}` | File upload |
-| `I accept alert` | Accept alert |
-| `I dismiss alert` | Dismiss alert |
-| `I input {string} into alert and accept` | Type + accept |
-| `I add cookie {string} with value {string}` | Add cookie |
-| `I delete cookie {string}` | Delete cookie |
-| `I delete all cookies` | Delete all |
-| `I execute javascript {string}` | Run JS |
-| `I capture page screenshot` | Full-page capture |
-| `I capture screenshot of element {string}` | Element capture |
+| Cucumber Expression                         | What It Does      |
+|---------------------------------------------|-------------------|
+| `I submit form {string}`                    | Submit            |
+| `I choose file {string} for {string}`       | File upload       |
+| `I accept alert`                            | Accept alert      |
+| `I dismiss alert`                           | Dismiss alert     |
+| `I input {string} into alert and accept`    | Type + accept     |
+| `I add cookie {string} with value {string}` | Add cookie        |
+| `I delete cookie {string}`                  | Delete cookie     |
+| `I delete all cookies`                      | Delete all        |
+| `I execute javascript {string}`             | Run JS            |
+| `I capture page screenshot`                 | Full-page capture |
+| `I capture screenshot of element {string}`  | Element capture   |
 
 ### Wait Keywords
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I wait until element {string} is visible` | Wait visible |
-| `I wait until element {string} is not visible` | Wait hidden |
-| `I wait until element {string} is enabled` | Wait clickable |
-| `I wait until element {string} contains text {string}` | Wait text |
-| `I wait until page contains text {string}` | Wait page text |
-| `I wait until page does not contain text {string}` | Wait text gone |
-| `I wait until page contains element {string}` | Wait element |
-| `I wait until page does not contain element {string}` | Wait element gone |
-| `I wait until location is {string}` | Wait URL equals |
-| `I wait until location contains {string}` | Wait URL contains |
+| Cucumber Expression                                    | What It Does      |
+|--------------------------------------------------------|-------------------|
+| `I wait until element {string} is visible`             | Wait visible      |
+| `I wait until element {string} is not visible`         | Wait hidden       |
+| `I wait until element {string} is enabled`             | Wait clickable    |
+| `I wait until element {string} contains text {string}` | Wait text         |
+| `I wait until page contains text {string}`             | Wait page text    |
+| `I wait until page does not contain text {string}`     | Wait text gone    |
+| `I wait until page contains element {string}`          | Wait element      |
+| `I wait until page does not contain element {string}`  | Wait element gone |
+| `I wait until location is {string}`                    | Wait URL equals   |
+| `I wait until location contains {string}`              | Wait URL contains |
 
 ### Element Utilities
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I scroll to element {string}` | Scroll into view |
-| `I set focus to element {string}` | Set focus |
+| Cucumber Expression               | What It Does     |
+|-----------------------------------|------------------|
+| `I scroll to element {string}`    | Scroll into view |
+| `I set focus to element {string}` | Set focus        |
 
 An `@After` hook automatically closes all actor browsers and clears global variables after each scenario.
 
@@ -549,84 +550,84 @@ Locator strings use `type:value` format with mobile-specific prefixes:
 
 ### Tap / Click
 
-| Method | Description |
-|---|---|
-| `tapElement(locator)` | Tap element |
-| `tapAtCoordinates(x, y)` | Tap at screen coordinates |
-| `longPressElement(locator)` | Long-press ~1 second |
+| Method                      | Description               |
+|-----------------------------|---------------------------|
+| `tapElement(locator)`       | Tap element               |
+| `tapAtCoordinates(x, y)`    | Tap at screen coordinates |
+| `longPressElement(locator)` | Long-press ~1 second      |
 
 ### Input
 
-| Method | Description |
-|---|---|
-| `inputText(locator, text)` | Clear and type text |
-| `clearText(locator)` | Clear field |
-| `hideKeyboard()` | Hide on-screen keyboard |
+| Method                     | Description             |
+|----------------------------|-------------------------|
+| `inputText(locator, text)` | Clear and type text     |
+| `clearText(locator)`       | Clear field             |
+| `hideKeyboard()`           | Hide on-screen keyboard |
 
 ### Element Getters (return String)
 
-| Method | Description |
-|---|---|
-| `getText(locator)` | Visible text |
-| `getElementAttribute(loc, attr)` | Any attribute |
-| `getElementCount(locator)` | Number of matches |
-| `getPageSource()` | Screen source XML |
+| Method                           | Description       |
+|----------------------------------|-------------------|
+| `getText(locator)`               | Visible text      |
+| `getElementAttribute(loc, attr)` | Any attribute     |
+| `getElementCount(locator)`       | Number of matches |
+| `getPageSource()`                | Screen source XML |
 
 ### Element Assertions
 
-| Method | Description |
-|---|---|
-| `verifyElementVisible(locator)` | Is visible |
-| `verifyElementNotVisible(locator)` | Is NOT visible |
-| `verifyElementEnabled(locator)` | Is enabled |
-| `verifyElementContains(loc, text)` | Contains text |
-| `verifyElementTextIs(loc, text)` | Exact text match |
+| Method                                     | Description      |
+|--------------------------------------------|------------------|
+| `verifyElementVisible(locator)`            | Is visible       |
+| `verifyElementNotVisible(locator)`         | Is NOT visible   |
+| `verifyElementEnabled(locator)`            | Is enabled       |
+| `verifyElementContains(loc, text)`         | Contains text    |
+| `verifyElementTextIs(loc, text)`           | Exact text match |
 | `verifyElementAttributeIs(loc, attr, val)` | Attribute equals |
-| `verifyScreenContainsElement(locator)` | Element exists |
-| `verifyScreenNotContainsElement(locator)` | Element absent |
+| `verifyScreenContainsElement(locator)`     | Element exists   |
+| `verifyScreenNotContainsElement(locator)`  | Element absent   |
 
 ### Gestures
 
-| Method | Description |
-|---|---|
-| `swipeUp()` | Swipe up |
-| `swipeDown()` | Swipe down |
-| `swipeLeft()` | Swipe left |
-| `swipeRight()` | Swipe right |
+| Method               | Description              |
+|----------------------|--------------------------|
+| `swipeUp()`          | Swipe up                 |
+| `swipeDown()`        | Swipe down               |
+| `swipeLeft()`        | Swipe left               |
+| `swipeRight()`       | Swipe right              |
 | `scrollToText(text)` | Scroll to text (Android) |
 
 ### App Lifecycle
 
-| Method | Description |
-|---|---|
-| `launchApp(appId)` | Activate app |
-| `closeApp(appId)` | Terminate app |
-| `resetApp(appId)` | Terminate + activate |
-| `getAppState(appId)` | Returns app state |
+| Method               | Description          |
+|----------------------|----------------------|
+| `launchApp(appId)`   | Activate app         |
+| `closeApp(appId)`    | Terminate app        |
+| `resetApp(appId)`    | Terminate + activate |
+| `getAppState(appId)` | Returns app state    |
 
 ### Device Actions
 
-| Method | Description |
-|---|---|
-| `setOrientation(orientation)` | Set LANDSCAPE/PORTRAIT |
-| `getOrientation()` | Returns orientation |
-| `captureScreenshot()` | Save to target/screenshots |
+| Method                        | Description                |
+|-------------------------------|----------------------------|
+| `setOrientation(orientation)` | Set LANDSCAPE/PORTRAIT     |
+| `getOrientation()`            | Returns orientation        |
+| `captureScreenshot()`         | Save to target/screenshots |
 
 ### Waits
 
-| Method | Description |
-|---|---|
-| `waitUntilElementVisible(locator)` | Wait visible |
+| Method                                | Description    |
+|---------------------------------------|----------------|
+| `waitUntilElementVisible(locator)`    | Wait visible   |
 | `waitUntilElementNotVisible(locator)` | Wait invisible |
-| `waitUntilElementEnabled(locator)` | Wait clickable |
-| `waitUntilElementContains(loc, text)` | Wait text |
+| `waitUntilElementEnabled(locator)`    | Wait clickable |
+| `waitUntilElementContains(loc, text)` | Wait text      |
 
 ### Context Switching (Hybrid Apps)
 
-| Method | Description |
-|---|---|
+| Method                  | Description                       |
+|-------------------------|-----------------------------------|
 | `switchToContext(name)` | Switch to NATIVE_APP or WEBVIEW_* |
-| `getContexts()` | Returns comma-separated contexts |
+| `getContexts()`         | Returns comma-separated contexts  |
 
 ---
 
@@ -636,91 +637,91 @@ Located in `common-module/src/main/java/com/mrquanga3/steps/CommonMobileSteps.ja
 
 ### Actor Management
 
-| Cucumber Expression | What It Does |
-|---|---|
+| Cucumber Expression                       | What It Does                           |
+|-------------------------------------------|----------------------------------------|
 | `{string} opens a mobile device {string}` | Open Appium session via device profile |
 
 ### Tap / Click
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I tap {string}` | Tap by locator key |
+| Cucumber Expression                    | What It Does           |
+|----------------------------------------|------------------------|
+| `I tap {string}`                       | Tap by locator key     |
 | `I tap at coordinates {int} and {int}` | Tap at screen position |
-| `I long press {string}` | Long-press element |
+| `I long press {string}`                | Long-press element     |
 
 ### Input
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I enter {string} to mobile field {string}` | Type text |
+| Cucumber Expression                                        | What It Does        |
+|------------------------------------------------------------|---------------------|
+| `I enter {string} to mobile field {string}`                | Type text           |
 | `I enter saved variable {string} to mobile field {string}` | Type saved variable |
-| `I clear mobile field {string}` | Clear field |
-| `I hide keyboard` | Hide keyboard |
+| `I clear mobile field {string}`                            | Clear field         |
+| `I hide keyboard`                                          | Hide keyboard       |
 
 ### Getters (save to variable)
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I get text of mobile element {string} then save to {string}` | Save text |
-| `I get attribute {string} of mobile element {string} then save to {string}` | Save attribute |
-| `I get mobile element count of {string} then save to {string}` | Save count |
-| `I get mobile page source then save to {string}` | Save source XML |
+| Cucumber Expression                                                         | What It Does    |
+|-----------------------------------------------------------------------------|-----------------|
+| `I get text of mobile element {string} then save to {string}`               | Save text       |
+| `I get attribute {string} of mobile element {string} then save to {string}` | Save attribute  |
+| `I get mobile element count of {string} then save to {string}`              | Save count      |
+| `I get mobile page source then save to {string}`                            | Save source XML |
 
 ### Assertions
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `mobile element {string} should be visible` | Element visible |
-| `mobile element {string} should not be visible` | Element hidden |
-| `mobile element {string} should be enabled` | Enabled |
-| `mobile element {string} should contain text {string}` | Contains text |
-| `mobile element {string} text should be {string}` | Exact text |
+| Cucumber Expression                                             | What It Does    |
+|-----------------------------------------------------------------|-----------------|
+| `mobile element {string} should be visible`                     | Element visible |
+| `mobile element {string} should not be visible`                 | Element hidden  |
+| `mobile element {string} should be enabled`                     | Enabled         |
+| `mobile element {string} should contain text {string}`          | Contains text   |
+| `mobile element {string} text should be {string}`               | Exact text      |
 | `mobile element {string} attribute {string} should be {string}` | Attribute value |
-| `screen should contain mobile element {string}` | Element exists |
-| `screen should not contain mobile element {string}` | Element absent |
+| `screen should contain mobile element {string}`                 | Element exists  |
+| `screen should not contain mobile element {string}`             | Element absent  |
 
 ### Gestures
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I swipe up` | Swipe up |
-| `I swipe down` | Swipe down |
-| `I swipe left` | Swipe left |
-| `I swipe right` | Swipe right |
+| Cucumber Expression         | What It Does             |
+|-----------------------------|--------------------------|
+| `I swipe up`                | Swipe up                 |
+| `I swipe down`              | Swipe down               |
+| `I swipe left`              | Swipe left               |
+| `I swipe right`             | Swipe right              |
 | `I scroll to text {string}` | Scroll to text (Android) |
 
 ### App Lifecycle
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I launch app {string}` | Activate app |
-| `I close app {string}` | Terminate app |
-| `I reset app {string}` | Terminate + activate |
-| `I get app state of {string} then save to {string}` | Save app state |
+| Cucumber Expression                                 | What It Does         |
+|-----------------------------------------------------|----------------------|
+| `I launch app {string}`                             | Activate app         |
+| `I close app {string}`                              | Terminate app        |
+| `I reset app {string}`                              | Terminate + activate |
+| `I get app state of {string} then save to {string}` | Save app state       |
 
 ### Device Actions
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I set orientation to {string}` | Set orientation |
-| `I get orientation then save to {string}` | Save orientation |
-| `I capture mobile screenshot` | Capture screenshot |
+| Cucumber Expression                       | What It Does       |
+|-------------------------------------------|--------------------|
+| `I set orientation to {string}`           | Set orientation    |
+| `I get orientation then save to {string}` | Save orientation   |
+| `I capture mobile screenshot`             | Capture screenshot |
 
 ### Waits
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I wait until mobile element {string} is visible` | Wait visible |
-| `I wait until mobile element {string} is not visible` | Wait hidden |
-| `I wait until mobile element {string} is enabled` | Wait clickable |
-| `I wait until mobile element {string} contains text {string}` | Wait text |
+| Cucumber Expression                                           | What It Does   |
+|---------------------------------------------------------------|----------------|
+| `I wait until mobile element {string} is visible`             | Wait visible   |
+| `I wait until mobile element {string} is not visible`         | Wait hidden    |
+| `I wait until mobile element {string} is enabled`             | Wait clickable |
+| `I wait until mobile element {string} contains text {string}` | Wait text      |
 
 ### Context Switching
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I switch to context {string}` | Switch context |
-| `I get contexts then save to {string}` | Save contexts |
+| Cucumber Expression                    | What It Does   |
+|----------------------------------------|----------------|
+| `I switch to context {string}`         | Switch context |
+| `I get contexts then save to {string}` | Save contexts  |
 
 ---
 
@@ -772,10 +773,10 @@ adb devices
 
 ### 3. Environment Variables
 
-| Variable | Purpose |
-|---|---|
+| Variable                             | Purpose              |
+|--------------------------------------|----------------------|
 | `ANDROID_HOME` or `ANDROID_SDK_ROOT` | Android SDK location |
-| `JAVA_HOME` | Java 17+ |
+| `JAVA_HOME`                          | Java 17+             |
 
 ### 4. Pre-Run Checklist
 
@@ -796,56 +797,56 @@ are resolved automatically via `Common.resolveVariables()`.
 
 ### Session Management
 
-| Method | Description |
-|---|---|
+| Method            | Description                   |
+|-------------------|-------------------------------|
 | `setBaseUrl(url)` | Set base URL for all requests |
-| `clearSession()` | Clear all API state |
+| `clearSession()`  | Clear all API state           |
 
 ### Headers / Auth
 
-| Method | Description |
-|---|---|
-| `setHeader(name, value)` | Add/update request header |
-| `removeHeader(name)` | Remove request header |
-| `setBasicAuth(user, pass)` | Set Basic auth header |
-| `setBearerToken(token)` | Set Bearer token header |
+| Method                     | Description               |
+|----------------------------|---------------------------|
+| `setHeader(name, value)`   | Add/update request header |
+| `removeHeader(name)`       | Remove request header     |
+| `setBasicAuth(user, pass)` | Set Basic auth header     |
+| `setBearerToken(token)`    | Set Bearer token header   |
 
 ### Request Body / Query Params
 
-| Method | Description |
-|---|---|
-| `setRequestBody(body)` | Set request body |
+| Method                       | Description            |
+|------------------------------|------------------------|
+| `setRequestBody(body)`       | Set request body       |
 | `setQueryParam(name, value)` | Add/update query param |
-| `removeQueryParam(name)` | Remove query param |
+| `removeQueryParam(name)`     | Remove query param     |
 
 ### HTTP Methods
 
-| Method | Description |
-|---|---|
-| `sendGet(endpoint)` | Send GET request |
-| `sendPost(endpoint)` | Send POST request |
-| `sendPut(endpoint)` | Send PUT request |
-| `sendPatch(endpoint)` | Send PATCH request |
+| Method                 | Description         |
+|------------------------|---------------------|
+| `sendGet(endpoint)`    | Send GET request    |
+| `sendPost(endpoint)`   | Send POST request   |
+| `sendPut(endpoint)`    | Send PUT request    |
+| `sendPatch(endpoint)`  | Send PATCH request  |
 | `sendDelete(endpoint)` | Send DELETE request |
 
 ### Response Getters (return String)
 
-| Method | Description |
-|---|---|
-| `getResponseBody()` | Full response body |
-| `getResponseStatusCode()` | Status code as string |
-| `getResponseHeader(name)` | Response header value |
+| Method                       | Description             |
+|------------------------------|-------------------------|
+| `getResponseBody()`          | Full response body      |
+| `getResponseStatusCode()`    | Status code as string   |
+| `getResponseHeader(name)`    | Response header value   |
 | `getJsonPathValue(jsonPath)` | Extract JSON path value |
 
 ### Response Assertions
 
-| Method | Description |
-|---|---|
-| `verifyStatusCode(expected)` | Assert status code |
-| `verifyResponseContains(text)` | Body contains text |
-| `verifyResponseNotContains(text)` | Body not contains text |
-| `verifyJsonPathEquals(path, expected)` | JSON path equals |
-| `verifyJsonPathContains(path, expected)` | JSON path contains |
+| Method                                   | Description            |
+|------------------------------------------|------------------------|
+| `verifyStatusCode(expected)`             | Assert status code     |
+| `verifyResponseContains(text)`           | Body contains text     |
+| `verifyResponseNotContains(text)`        | Body not contains text |
+| `verifyJsonPathEquals(path, expected)`   | JSON path equals       |
+| `verifyJsonPathContains(path, expected)` | JSON path contains     |
 
 ---
 
@@ -855,69 +856,69 @@ Located in `common-module/src/main/java/com/mrquanga3/steps/CommonApiSteps.java`
 
 ### Session Management
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I set API base URL to {string}` | Set base URL directly |
+| Cucumber Expression                | What It Does                     |
+|------------------------------------|----------------------------------|
+| `I set API base URL to {string}`   | Set base URL directly            |
 | `I set API base URL from {string}` | Set base URL from properties key |
 
 ### Headers / Auth
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I set API header {string} to {string}` | Add/update header |
-| `I remove API header {string}` | Remove header |
-| `I set API basic auth with {string} and {string}` | Basic auth directly |
-| `I set API basic auth from {string} and {string}` | Basic auth from properties |
-| `I set API bearer token {string}` | Bearer token directly |
-| `I set API bearer token from variable {string}` | Bearer token from saved variable |
+| Cucumber Expression                               | What It Does                     |
+|---------------------------------------------------|----------------------------------|
+| `I set API header {string} to {string}`           | Add/update header                |
+| `I remove API header {string}`                    | Remove header                    |
+| `I set API basic auth with {string} and {string}` | Basic auth directly              |
+| `I set API basic auth from {string} and {string}` | Basic auth from properties       |
+| `I set API bearer token {string}`                 | Bearer token directly            |
+| `I set API bearer token from variable {string}`   | Bearer token from saved variable |
 
 ### Request Body / Query Params
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I set API request body {string}` | Set body inline |
-| `I set API request body to` (DocString) | Set body from multi-line |
+| Cucumber Expression                             | What It Does                 |
+|-------------------------------------------------|------------------------------|
+| `I set API request body {string}`               | Set body inline              |
+| `I set API request body to` (DocString)         | Set body from multi-line     |
 | `I set API request body from variable {string}` | Set body from saved variable |
-| `I set API query param {string} to {string}` | Add/update query param |
-| `I remove API query param {string}` | Remove query param |
+| `I set API query param {string} to {string}`    | Add/update query param       |
+| `I remove API query param {string}`             | Remove query param           |
 
 ### Send Requests (direct URL)
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I send a GET request to {string}` | GET to direct URL/path |
-| `I send a POST request to {string}` | POST to direct URL/path |
-| `I send a PUT request to {string}` | PUT to direct URL/path |
-| `I send a PATCH request to {string}` | PATCH to direct URL/path |
+| Cucumber Expression                   | What It Does              |
+|---------------------------------------|---------------------------|
+| `I send a GET request to {string}`    | GET to direct URL/path    |
+| `I send a POST request to {string}`   | POST to direct URL/path   |
+| `I send a PUT request to {string}`    | PUT to direct URL/path    |
+| `I send a PATCH request to {string}`  | PATCH to direct URL/path  |
 | `I send a DELETE request to {string}` | DELETE to direct URL/path |
 
 ### Send Requests (from properties)
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I send a GET request to the {string} endpoint` | GET from properties key |
-| `I send a POST request to the {string} endpoint` | POST from properties key |
-| `I send a PUT request to the {string} endpoint` | PUT from properties key |
-| `I send a PATCH request to the {string} endpoint` | PATCH from properties key |
+| Cucumber Expression                                | What It Does               |
+|----------------------------------------------------|----------------------------|
+| `I send a GET request to the {string} endpoint`    | GET from properties key    |
+| `I send a POST request to the {string} endpoint`   | POST from properties key   |
+| `I send a PUT request to the {string} endpoint`    | PUT from properties key    |
+| `I send a PATCH request to the {string} endpoint`  | PATCH from properties key  |
 | `I send a DELETE request to the {string} endpoint` | DELETE from properties key |
 
 ### Response Getters (save to variable)
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `I get API response body then save to {string}` | Save response body |
-| `I get API response status then save to {string}` | Save status code |
+| Cucumber Expression                                        | What It Does         |
+|------------------------------------------------------------|----------------------|
+| `I get API response body then save to {string}`            | Save response body   |
+| `I get API response status then save to {string}`          | Save status code     |
 | `I get API response header {string} then save to {string}` | Save response header |
-| `I get API JSON path {string} then save to {string}` | Save JSON path value |
+| `I get API JSON path {string} then save to {string}`       | Save JSON path value |
 
 ### Response Assertions
 
-| Cucumber Expression | What It Does |
-|---|---|
-| `the API response status code should be {int}` | Assert status code |
-| `the API response body should contain {string}` | Body contains |
-| `the API response body should not contain {string}` | Body not contains |
-| `the API JSON path {string} should be {string}` | JSON path equals |
+| Cucumber Expression                                  | What It Does       |
+|------------------------------------------------------|--------------------|
+| `the API response status code should be {int}`       | Assert status code |
+| `the API response body should contain {string}`      | Body contains      |
+| `the API response body should not contain {string}`  | Body not contains  |
+| `the API JSON path {string} should be {string}`      | JSON path equals   |
 | `the API JSON path {string} should contain {string}` | JSON path contains |
 
 An `@After` hook automatically clears API session state after each scenario.

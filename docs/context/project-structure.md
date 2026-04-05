@@ -64,10 +64,10 @@ DemSerenityWithAI/                  ← parent POM (packaging=pom)
 
 ## Module Responsibilities
 
-| Module          | Scope   | Purpose                                                      |
-|-----------------|---------|--------------------------------------------------------------|
-| `common-module` | compile | Keywords (Web, Mobile, API, DB), common steps, multi-actor support (ActorManager) |
-| `module-demo-all-platforms`    | test    | Feature files (web, mobile, API, DB), locators, environment config, runner        |
+| Module                      | Scope   | Purpose                                                                           |
+|-----------------------------|---------|-----------------------------------------------------------------------------------|
+| `common-module`             | compile | Keywords (Web, Mobile, API, DB), common steps, multi-actor support (ActorManager) |
+| `module-demo-all-platforms` | test    | Feature files (web, mobile, API, DB), locators, environment config, runner        |
 
 ## Adding a New Page/Feature
 

@@ -11,7 +11,7 @@ parent pom (packaging=pom)
 ---
 
 ## Parent POM Responsibilities
- 
+
 | Section                      | What Goes Here                                        |
 |------------------------------|-------------------------------------------------------|
 | `<packaging>pom</packaging>` | Required for parent/aggregator                        |

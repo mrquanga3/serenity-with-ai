@@ -1,8 +1,10 @@
 package com.mrquanga3.keywords;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.mrquanga3.common.Common;
+import net.serenitybdd.annotations.Step;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,9 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import net.serenitybdd.annotations.Step;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Keyword-driven library of reusable database actions using JDBC.
@@ -47,7 +48,7 @@ public class DbKeywords {
   /** Opens a JDBC connection with the given URL, user, password. */
   @Step("Connect to database '{0}' as '{1}'")
   public void connect(String jdbcUrl, String username,
-      String password) {
+                      String password) {
     closeExistingConnection();
     try {
       String url = Common.resolveVariables(jdbcUrl);

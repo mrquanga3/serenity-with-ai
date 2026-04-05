@@ -5,10 +5,11 @@ import com.typesafe.config.ConfigFactory;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ResourceList;
 import io.github.classgraph.ScanResult;
-import java.io.IOException;
-import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Scans {@code .properties} files under the {@code properties/} classpath

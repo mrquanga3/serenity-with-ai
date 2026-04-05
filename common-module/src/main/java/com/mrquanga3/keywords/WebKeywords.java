@@ -1,15 +1,6 @@
 package com.mrquanga3.keywords;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.mrquanga3.utils.ActorManager;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Duration;
-import java.util.List;
-import java.util.Locale;
 import net.serenitybdd.annotations.Step;
 import net.serenitybdd.core.Serenity;
 import org.openqa.selenium.Alert;
@@ -28,6 +19,16 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Duration;
+import java.util.List;
+import java.util.Locale;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Keyword-driven library of reusable browser actions modelled after

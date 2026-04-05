@@ -1,17 +1,18 @@
 package com.mrquanga3.keywords;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.mrquanga3.common.Common;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import net.serenitybdd.annotations.Step;
+import net.serenitybdd.rest.SerenityRest;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import net.serenitybdd.annotations.Step;
-import net.serenitybdd.rest.SerenityRest;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Keyword-driven library of reusable API actions modelled after
