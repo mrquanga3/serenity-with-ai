@@ -3,21 +3,22 @@ package com.mrquanga3.utils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
-import java.io.IOException;
-import java.net.URL;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
+import net.thucydides.core.webdriver.SerenityWebdriverManager;
+import net.thucydides.core.webdriver.ThucydidesWebDriverSupport;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import net.thucydides.core.webdriver.SerenityWebdriverManager;
-import net.thucydides.core.webdriver.ThucydidesWebDriverSupport;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Manages multiple named sessions (actors) within a single scenario.

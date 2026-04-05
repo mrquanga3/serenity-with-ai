@@ -101,7 +101,17 @@
       "Bash(where mysql:*)",
       "Read(//c/Program Files/**)",
       "Read(//c/xampp/mysql/bin/**)",
-      "Read(//c/laragon/bin/**)"
+      "Read(//c/laragon/bin/**)",
+      "Bash(xargs grep:*)",
+      "Bash(gh pr:*)",
+      "Bash(where gh:*)",
+      "Bash(winget install:*)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
+      "Bash(gh --version)",
+      "Bash(gh auth:*)",
+      "Bash(printf \"protocol=https\\\\nhost=github.com\\\\n\")",
+      "Bash(git credential:*)",
+      "Bash(git -C \"D:/Automation Test with AI/serenity-with-ai\" mv docs/context/page-index.md docs/rag/page-index.md)"
     ]
   }
 }

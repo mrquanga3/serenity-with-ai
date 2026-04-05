@@ -9,10 +9,11 @@ import io.appium.java_client.ios.options.XCUITestOptions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.serenitybdd.annotations.Steps;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
-import net.serenitybdd.annotations.Steps;
 
 /**
  * Generic Cucumber step definitions for mobile (Appium) actions.
@@ -46,7 +47,7 @@ public class CommonMobileSteps {
   public void actorOpensMobileDevice(
       String actorName, String deviceProfile) {
     String platform = PropertiesLoader.get(
-        deviceProfile + ".platformName")
+            deviceProfile + ".platformName")
         .trim().toLowerCase(Locale.ROOT);
     String appiumUrlStr = PropertiesLoader.get(
         deviceProfile + ".appiumUrl");

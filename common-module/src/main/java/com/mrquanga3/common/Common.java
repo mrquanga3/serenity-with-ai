@@ -24,7 +24,7 @@ public final class Common {
 
   private static final ThreadLocal<Map<String, String>>
       GLOBAL_VARIABLES =
-          ThreadLocal.withInitial(HashMap::new);
+      ThreadLocal.withInitial(HashMap::new);
 
   private Common() {
   }

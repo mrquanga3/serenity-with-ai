@@ -1,7 +1,5 @@
 package com.mrquanga3.keywords;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.mrquanga3.utils.ActorManager;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
@@ -9,13 +7,6 @@ import io.appium.java_client.HidesKeyboard;
 import io.appium.java_client.InteractsWithApps;
 import io.appium.java_client.remote.SupportsContextSwitching;
 import io.appium.java_client.remote.SupportsRotation;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Duration;
-import java.util.List;
-import java.util.Set;
 import net.serenitybdd.annotations.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -28,6 +19,16 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Duration;
+import java.util.List;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Keyword-driven library of reusable mobile actions for Appium.

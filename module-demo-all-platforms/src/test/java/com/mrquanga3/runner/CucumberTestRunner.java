@@ -1,14 +1,14 @@
 package com.mrquanga3.runner;
 
-import static io.cucumber.junit.platform.engine.Constants.FEATURES_PROPERTY_NAME;
-import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
-import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
-
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.Suite;
+
+import static io.cucumber.junit.platform.engine.Constants.FEATURES_PROPERTY_NAME;
+import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
+import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
 /**
  * JUnit 5 Platform Suite that discovers and executes all Cucumber
