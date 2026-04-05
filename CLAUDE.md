@@ -54,6 +54,48 @@ Before writing any Java code, read:
 - [docs/rules/code-style.md](docs/rules/code-style.md) — Checkstyle rules, known violations, PMD rules
 - [docs/rules/serenity-bdd.md](docs/rules/serenity-bdd.md) — correct annotation packages, WebDriver access
 
+## Branch Workflow (MANDATORY)
+
+At the **start of every session**, before making any changes:
+
+1. **Check current branch** (`git branch --show-current`)
+2. **If on `main`:** Suggest a new branch name based on the task and ask the user to confirm before proceeding.
+3. **If on a non-main branch:** Ask the user whether to:
+   - Continue working on the current branch, OR
+   - Create a new branch from `main` and bring all uncommitted changes to the new branch
+
+### Branch naming convention
+
+Use the format: `<type>/<short-description>`
+
+| Type | When |
+|---|---|
+| `feature/` | New functionality, new docs, new tests |
+| `fix/` | Bug fixes |
+| `refactor/` | Code restructuring, cleanup |
+| `chore/` | Config, CI, tooling changes |
+
+Examples: `feature/add-login-tests`, `fix/mobile-locator-timeout`, `refactor/split-web-keywords`
+
+### Creating a new branch from main with existing changes
+
+```bash
+# Stash current changes
+git stash
+# Switch to main and pull latest
+git checkout main && git pull
+# Create new branch
+git checkout -b <type>/<short-description>
+# Restore changes
+git stash pop
+```
+
+### After work is done
+
+Always create a PR to `main` — never push directly to `main`.
+
+---
+
 ## Knowledge Base
 
 ### Context
