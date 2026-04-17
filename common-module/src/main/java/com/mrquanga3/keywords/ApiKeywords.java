@@ -8,10 +8,13 @@ import net.serenitybdd.annotations.Step;
 import net.serenitybdd.rest.SerenityRest;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -235,7 +238,112 @@ public class ApiKeywords {
         .contains(exp);
   }
 
+  // ── Schema assertions ──────────────────────────────────────
+
+  /** Asserts the response Content-Type is application/json. */
+  @Step("Verify response is JSON")
+  public void verifyResponseIsJson() {
+    String contentType = lastResponse().contentType();
+    assertThat(contentType)
+        .as("Response Content-Type should be application/json")
+        .contains("application/json");
+  }
+
+  /** Validates the response body against a JSON Schema file on the classpath. */
+  @Step("Verify response matches JSON schema '{0}'")
+  public void verifyResponseMatchesJsonSchema(String schemaPath) {
+    lastResponse().then().assertThat()
+        .body(matchesJsonSchemaInClasspath(schemaPath));
+  }
+
+  /** Verifies the response JSON object matches the given Karate-style schema rows. */
+  @Step("Verify response schema")
+  public void verifyResponseSchema(List<Map<String, String>> rows) {
+    List<String> violations = new ArrayList<>();
+    for (Map<String, String> row : rows) {
+      String field = Common.resolveVariables(row.get("field"));
+      String marker = row.get("type");
+      Object value = lastResponse().jsonPath().get(field);
+      checkField(field, marker, value, violations);
+    }
+    assertNoViolations(violations);
+  }
+
+  /** Verifies every item in a root JSON array matches the given Karate-style schema rows. */
+  @Step("Verify array item schema")
+  public void verifyArrayItemSchema(List<Map<String, String>> rows) {
+    List<Map<String, Object>> items =
+        lastResponse().jsonPath().getList("$");
+    assertThat(items)
+        .as("Response should be a non-empty JSON array")
+        .isNotEmpty();
+    List<String> violations = new ArrayList<>();
+    for (int ix = 0; ix < items.size(); ix++) {
+      Map<String, Object> item = items.get(ix);
+      for (Map<String, String> row : rows) {
+        String field = Common.resolveVariables(row.get("field"));
+        String marker = row.get("type");
+        Object value = item.get(field);
+        checkField("item[" + ix + "] " + field, marker, value, violations);
+      }
+    }
+    assertNoViolations(violations);
+  }
+
   // ── Private helpers ────────────────────────────────────────
+
+  private void checkField(
+      String field, String marker, Object value, List<String> violations) {
+    if ("#ignore".equals(marker)) {
+      return;
+    }
+    boolean optional = marker.startsWith("##");
+    String typeName = optional
+        ? marker.substring(2)
+        : marker.startsWith("#") ? marker.substring(1) : marker;
+    if (value == null) {
+      if (!optional && !"present".equals(typeName)) {
+        violations.add("field '" + field + "': required but missing or null");
+      }
+      return;
+    }
+    if ("notnull".equals(typeName) || "present".equals(typeName)) {
+      return;
+    }
+    if (!matchesType(value, typeName)) {
+      violations.add(
+          "field '" + field + "': expected '" + marker
+              + "' but got " + value.getClass().getSimpleName());
+    }
+  }
+
+  private boolean matchesType(Object value, String typeName) {
+    if ("string".equals(typeName)) {
+      return value instanceof String;
+    } else if ("integer".equals(typeName)) {
+      return value instanceof Integer || value instanceof Long;
+    } else if ("number".equals(typeName)) {
+      return value instanceof Number;
+    } else if ("boolean".equals(typeName)) {
+      return value instanceof Boolean;
+    } else if ("array".equals(typeName)) {
+      return value instanceof List;
+    } else if ("object".equals(typeName)) {
+      return value instanceof Map;
+    } else {
+      return true;
+    }
+  }
+
+  private void assertNoViolations(List<String> violations) {
+    if (!violations.isEmpty()) {
+      StringBuilder sb = new StringBuilder("Schema violations:");
+      for (String violation : violations) {
+        sb.append("\n- ").append(violation);
+      }
+      assertThat(violations).as(sb.toString()).isEmpty();
+    }
+  }
 
   private void sendRequest(String method, String endpoint) {
     RequestSpecification spec = buildRequestSpec();
