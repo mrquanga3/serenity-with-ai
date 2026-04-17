@@ -38,6 +38,11 @@
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-rest-assured</artifactId>
         </dependency>
+        <!-- REST Assured JSON Schema validation (Draft v4) -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

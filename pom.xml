@@ -84,6 +84,11 @@
                 <version>${appium.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>json-schema-validator</artifactId>
+                <version>5.4.0</version>
+            </dependency>
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
                 <version>2.0.11</version>

@@ -3,6 +3,7 @@ package com.mrquanga3.steps;
 import com.mrquanga3.common.Common;
 import com.mrquanga3.keywords.ApiKeywords;
 import com.mrquanga3.utils.PropertiesLoader;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -262,5 +263,29 @@ public class CommonApiSteps {
   public void verifyJsonPathContains(
       String jsonPath, String expected) {
     apiKeywords.verifyJsonPathContains(jsonPath, expected);
+  }
+
+  /** Asserts the response Content-Type is application/json. */
+  @Then("the API response should be JSON")
+  public void verifyResponseIsJson() {
+    apiKeywords.verifyResponseIsJson();
+  }
+
+  /** Validates response body against a JSON Schema file on the classpath. */
+  @Then("the API response should match JSON schema {string}")
+  public void verifyResponseMatchesJsonSchema(String schemaPath) {
+    apiKeywords.verifyResponseMatchesJsonSchema(schemaPath);
+  }
+
+  /** Validates response JSON object fields using Karate-style type markers. */
+  @Then("the API response should match schema")
+  public void verifyResponseSchema(DataTable dataTable) {
+    apiKeywords.verifyResponseSchema(dataTable.asMaps());
+  }
+
+  /** Validates every item in a root JSON array using Karate-style type markers. */
+  @Then("each item in the API response array should match schema")
+  public void verifyArrayItemSchema(DataTable dataTable) {
+    apiKeywords.verifyArrayItemSchema(dataTable.asMaps());
   }
 }

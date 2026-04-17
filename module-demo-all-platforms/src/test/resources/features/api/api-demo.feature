@@ -6,9 +6,17 @@ Feature: API Testing Demo
     Given I set API base URL from "apiBaseUrl"
     When I send a GET request to the "endpoint.posts.single" endpoint
     Then the API response status code should be 200
+    And the API response should be JSON
     And the API response body should contain "userId"
     And the API JSON path "id" should be "1"
     And I get API response body then save to "responseBody"
+    And the API response should match JSON schema "schemas/post-schema.json"
+    And the API response should match schema
+      | field  | type    |
+      | id     | #number |
+      | title  | #string |
+      | body   | #string |
+      | userId | #number |
 
   Scenario: POST request to create a resource
     Given I set API base URL from "apiBaseUrl"
@@ -22,8 +30,16 @@ Feature: API Testing Demo
       """
     And I send a POST request to the "endpoint.posts.create" endpoint
     Then the API response status code should be 201
+    And the API response should be JSON
     And the API JSON path "title" should be "foo"
     And I get API JSON path "id" then save to "newPostId"
+    And the API response should match JSON schema "schemas/created-post-schema.json"
+    And the API response should match schema
+      | field  | type     |
+      | id     | #number  |
+      | title  | #string  |
+      | body   | ##string |
+      | userId | ##number |
 
   Scenario: PUT request to update a resource
     Given I set API base URL from "apiBaseUrl"
@@ -63,3 +79,16 @@ Feature: API Testing Demo
     Given I set API base URL from "apiBaseUrl"
     When I send a DELETE request to the "endpoint.posts.delete" endpoint
     Then the API response status code should be 200
+
+  Scenario: GET list of posts and validate array item schema
+    Given I set API base URL from "apiBaseUrl"
+    When I send a GET request to the "endpoint.posts.list" endpoint
+    Then the API response status code should be 200
+    And the API response should be JSON
+    And the API response should match JSON schema "schemas/post-list-schema.json"
+    And each item in the API response array should match schema
+      | field  | type    |
+      | id     | #number |
+      | title  | #string |
+      | body   | #string |
+      | userId | #number |
